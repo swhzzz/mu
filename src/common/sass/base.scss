@@ -1,0 +1,9 @@
+@import './variable.scss';
+
+body, html {
+  line-height: 1;
+  background: $color-background;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
