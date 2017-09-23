@@ -9,10 +9,13 @@
     </div>
     <div class="hotSongList-wrap">
       <h5 class="hotSongList-title">热门歌单推荐</h5>
-      <ul class="hotSongList" v-for="item in this.hotSongList">
+      <div v-if="!hotSongList.length" class="loading-wrap">
+        <loading></loading>
+      </div>
+      <ul v-else class="hotSongList" v-for="item in this.hotSongList">
         <!--<a :href="item.">-->
         <li class="listInfo">
-          <div><img :src="item.imgurl" alt="" class="icon"></div>
+          <div><img v-lazy="item.imgurl" alt="" class="icon"></div>
           <div class="listInfo-text">
             <h4>{{item.creator.name}}</h4>
             <p>{{item.dissname}}</p>
@@ -27,6 +30,7 @@
 <script>
   import {getRecommend, getSongList} from '../api/recommend'
   import Slider from '../base/slider.vue'
+  import Loading from '../base/loading/loading.vue'
 
   export default {
     data() {
@@ -36,7 +40,8 @@
       }
     },
     components: {
-      Slider
+      Slider,
+      Loading
     },
     created() {
       this._getRecommend()
@@ -67,14 +72,19 @@
     padding: 20px;
     .hotSongList-title {
       text-align: center;
-      padding: 10px;
+      /*padding: 8px;*/
       color: $color-theme;
     }
     .hotSongList {
-      li  {
+      li {
         margin-top: 20px;
       }
     }
+  }
+
+  .loading-wrap {
+    display: flex;
+    justify-content: center;
   }
 
   .listInfo {
