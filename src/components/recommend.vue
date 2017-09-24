@@ -72,7 +72,6 @@
     padding: 20px;
     .hotSongList-title {
       text-align: center;
-      /*padding: 8px;*/
       color: $color-theme;
     }
     .hotSongList {
