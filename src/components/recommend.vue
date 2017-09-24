@@ -1,29 +1,31 @@
 <template>
   <div class="recommend">
-    <div v-if="sliderPicInfos.length" class="slider-wrap">
-      <slider>
-        <div v-for="item in sliderPicInfos">
-          <a :href="item.linkUrl"><img :src="item.picUrl" alt=""></a>
+    <scroll ref="scroll" :data="hotSongList" class="scroll">
+      <div>
+        <div v-if="sliderPicInfos.length" class="slider-wrap">
+          <slider>
+            <div v-for="item in sliderPicInfos">
+              <a :href="item.linkUrl"><img :src="item.picUrl" alt=""></a>
+            </div>
+          </slider>
         </div>
-      </slider>
-    </div>
-    <div class="hotSongList-wrap">
-      <h5 class="hotSongList-title">热门歌单推荐</h5>
-      <div v-if="!hotSongList.length" class="loading-wrap">
-        <loading></loading>
-      </div>
-      <ul v-else class="hotSongList" v-for="item in this.hotSongList">
-        <!--<a :href="item.">-->
-        <li class="listInfo">
-          <div><img v-lazy="item.imgurl" alt="" class="icon"></div>
-          <div class="listInfo-text">
-            <h4>{{item.creator.name}}</h4>
-            <p>{{item.dissname}}</p>
+        <div class="hotSongList-wrap">
+          <h5 class="hotSongList-title">热门歌单推荐</h5>
+          <div v-if="!hotSongList.length" class="loading-wrap">
+            <loading></loading>
           </div>
-        </li>
-        <!--</a>-->
-      </ul>
-    </div>
+          <ul v-else class="hotSongList" v-for="item in hotSongList">
+            <li class="listInfo">
+              <div><img v-lazy="item.imgurl" alt="" class="icon" @load="loadImage"></div>
+              <div class="listInfo-text">
+                <h4>{{item.creator.name}}</h4>
+                <p>{{item.dissname}}</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </scroll>
   </div>
 </template>
 
@@ -31,6 +33,7 @@
   import {getRecommend, getSongList} from '../api/recommend'
   import Slider from '../base/slider.vue'
   import Loading from '../base/loading/loading.vue'
+  import scroll from '../base/scroll.vue'
 
   export default {
     data() {
@@ -41,13 +44,20 @@
     },
     components: {
       Slider,
-      Loading
+      Loading,
+      scroll
     },
     created() {
       this._getRecommend()
       this._getSongList()
     },
     methods: {
+      loadImage() {
+        if (!this.checkloaded) {
+          this.checkloaded = true
+          this.$refs.scroll.refresh()
+        }
+      },
       _getRecommend() {
         getRecommend().then((res) => {
           if (res.code === 0) {
@@ -58,7 +68,6 @@
       _getSongList() {
         getSongList().then((res) => {
           this.hotSongList = res.data.list
-          console.log(res.data.list)
         })
       }
     }
@@ -67,6 +76,17 @@
 
 <style scoped lang="scss">
   @import '../common/sass/variable.scss';
+
+  .recommend {
+    position: fixed;
+    width: 100%;
+    top: 88px;
+    bottom: 0;
+    .scroll {
+      height: 100%;
+      overflow: hidden;
+    }
+  }
 
   .hotSongList-wrap {
     padding: 20px;

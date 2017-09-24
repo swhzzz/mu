@@ -1,24 +1,25 @@
 <template>
-  <div>
-    <ol class="singerList">
-      <li v-for="item in singers">
-        <h6 class="title">{{item.title}}</h6>
-        <div v-for="subItem in item.items" class="singerInfo">
-          <img v-lazy="subItem.avatar" alt="" class="avatar">
-          <span class="singer-name">{{subItem.name}}</span>
-        </div>
-      </li>
-    </ol>
-    <ol class="sidebar">
-      <li v-for="item in sidebar">
-        <span>{{item}}</span>
-      </li>
-    </ol>
+  <div class="singer">
+    <scroll class="scroll" :data="singers">
+      <ol class="singerList">
+        <li v-for="item in singers">
+          <h6 class="title">{{item.title}}</h6>
+          <div v-for="subItem in item.items" class="singerInfo">
+            <img v-lazy="subItem.avatar" alt="" class="avatar">
+            <span class="singer-name">{{subItem.name}}</span>
+          </div>
+        </li>
+      </ol>
+      <ol class="sidebar">
+        <li v-for="item in sidebar" @click="switchIndex($event)">{{item}}</li>
+      </ol>
+    </scroll>
   </div>
 </template>
 
 <script>
   import getSinger from '../api/singer'
+  import scroll from '../base/scroll.vue'
 
   export default {
     data() {
@@ -26,6 +27,7 @@
         singers: []
       }
     },
+    components: {scroll},
     created() {
       this._getSinger()
     },
@@ -85,6 +87,9 @@
           this.singers = hot.concat(ret)
 //          console.log(this.singers)
         })
+      },
+      switchIndex(e) {
+        console.log(e.target.value)
       }
     },
     computed: {
@@ -100,12 +105,22 @@
 <style scoped lang="scss">
   @import '../common/sass/variable';
 
-  .title {
-    color: #fff;
-    background-color: $color-highlight-background;
-    height: 24px;
-    line-height: 24px;
-    padding-left: 12px;
+  .singer {
+    position: absolute;
+    width: 100%;
+    top: 78px;
+    bottom: 0;
+    .scroll {
+      height: 100%;
+      overflow: hidden;
+      .title {
+        color: #fff;
+        background-color: $color-highlight-background;
+        height: 24px;
+        line-height: 24px;
+        padding-left: 12px;
+      }
+    }
   }
 
   .singerInfo {
@@ -137,12 +152,11 @@
     li {
       display: flex;
       align-items: center;
-      justify-content:center;
-      span {
-        font-size: 12px;
-        margin-top: 4px;
-        color: $color-text-l;
-      }
+      justify-content: center;
+      padding: 0 4px;
+      font-size: 12px;
+      margin-top: 4px;
+      color: $color-text-l;
     }
   }
 </style>
