@@ -5,6 +5,7 @@
 </template>
 
 <script>
+  import {getSingerDetail} from '../api/singerDetail'
   import {mapGetters} from 'vuex'
 
   export default {
@@ -12,7 +13,21 @@
       ...mapGetters(['singer'])
     },
     created() {
-      console.log(this.singer)
+//      console.log(this.singer)
+      this._getSingerDetail()
+    },
+    methods: {
+      _getSingerDetail() {
+        if (!this.singer.singerMid) { // 在detail页面刷新，返回歌手页面
+          this.$router.push({
+            path: '/singer'
+          })
+        }
+        let singerMid = this.singer.singerMid
+        getSingerDetail(singerMid).then((res) => {
+          console.log(res.data)
+        })
+      }
     }
   }
 </script>

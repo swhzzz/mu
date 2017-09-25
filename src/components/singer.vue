@@ -84,6 +84,7 @@
               map.hot.items.push({
                 name: item.Fsinger_name,
                 id: item.Fsinger_id,
+                singerMid: item.Fsinger_mid,
                 avatar: `https://y.gtimg.cn/music/photo_new/T001R150x150M000${item.Fsinger_mid}.jpg?max_age=2592000`
               })
             } else if (!map[item.Findex]) {
@@ -94,12 +95,14 @@
               map[item.Findex].items.push({
                 name: item.Fsinger_name,
                 id: item.Fsinger_id,
+                singerMid: item.Fsinger_mid,
                 avatar: `https://y.gtimg.cn/music/photo_new/T001R150x150M000${item.Fsinger_mid}.jpg?max_age=2592000`
               })
             } else {
               map[item.Findex].items.push({
                 name: item.Fsinger_name,
                 id: item.Fsinger_id,
+                singerMid: item.Fsinger_mid,
                 avatar: `https://y.gtimg.cn/music/photo_new/T001R150x150M000${item.Fsinger_mid}.jpg?max_age=2592000`
               })
             }
@@ -149,7 +152,7 @@
       },
       jumpToSinger(subItem) {
         this.$router.push({
-          path: `/singer/${subItem.id}`
+          path: `/singer/${subItem.singerMid}`
         })
         this.$store.commit('setSinger', subItem)
       }
