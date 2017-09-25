@@ -24,6 +24,12 @@
         >{{item}}
         </li>
       </ol>
+      <div class="fixed-title" v-if="fixedTitle" ref="fixed">
+        <h6>{{fixedTitle}}</h6>
+      </div>
+      <div class="wrapper" v-if="!singers.length">
+        <loading></loading>
+      </div>
     </scroll>
   </div>
 </template>
@@ -31,6 +37,7 @@
 <script>
   import getSinger from '../api/singer'
   import scroll from '../base/scroll.vue'
+  import Loading from '../base/loading/loading.vue'
 
   export default {
     data() {
@@ -39,13 +46,27 @@
         scrollY: -1,
         currentIndex: 0,
         listHeight: [0],
-        listenScroll: true
+        listenScroll: true,
+        diff: 0
       }
     },
-    components: {scroll},
     created() {
       this._getSinger()
     },
+    computed: {
+      sidebar() {
+        return this.singers.map((item) => {
+          return item.title.substring(0, 1)
+        })
+      },
+      fixedTitle() {
+        if (this.scrollY > 0) {
+          return;
+        }
+        return this.singers[this.currentIndex] ? this.singers[this.currentIndex].title : ''
+      }
+    },
+    components: {scroll, Loading},
     methods: {
       _getSinger() {
         getSinger().then((res) => {
@@ -125,19 +146,13 @@
 //        console.log(this.listHeight)
       }
     },
-    computed: {
-      sidebar() {
-        return this.singers.map((item) => {
-          return item.title.substring(0, 1)
-        })
-      }
-    },
     watch: {
       scrollY(newY) {
         let listHeight = this.listHeight
         for (let i = 0; i < listHeight.length; i++) {
           let height1 = listHeight[i]
           let height2 = listHeight[i + 1]
+          this.diff = height2 + newY
           if (newY >= 0) { // y大于0情况
             this.currentIndex = 0
             return;
@@ -148,6 +163,10 @@
             return;
           }
         }
+      },
+      diff(newDiff) {
+        let fixedTop = (newDiff > 0 && newDiff < 24) ? newDiff - 24 : 0 // 相减为负值，transform向上滚动
+        this.$refs.fixed.style.transform = `translate3d(0,${fixedTop}px,0)`
       }
     }
   }
@@ -213,5 +232,24 @@
 
   .active {
     color: $color-theme !important;
+  }
+
+  .fixed-title {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    h6 {
+      height: 24px;
+      line-height: 24px;
+      padding-left: 12px;
+      color: #fff;
+      background-color: $color-highlight-background;
+    }
+  }
+
+  .wrapper {
+    display: flex;
+    justify-content: center;
   }
 </style>
