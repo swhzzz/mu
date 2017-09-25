@@ -5,10 +5,16 @@
 </template>
 
 <script>
-  import {getSingerDetail} from '../api/singerDetail'
   import {mapGetters} from 'vuex'
+  import {getSingerDetail} from '../api/singerDetail'
+  import {createSong} from '../api/song'
 
   export default {
+    data() {
+      return {
+        songs: []
+      }
+    },
     computed: {
       ...mapGetters(['singer'])
     },
@@ -18,14 +24,18 @@
     },
     methods: {
       _getSingerDetail() {
-        if (!this.singer.singerMid) { // 在detail页面刷新，返回歌手页面
+        let singerMid = this.singer.singerMid
+        if (!singerMid) { // 在detail页面刷新，返回歌手页面
           this.$router.push({
             path: '/singer'
           })
         }
-        let singerMid = this.singer.singerMid
         getSingerDetail(singerMid).then((res) => {
-          console.log(res.data)
+          console.log(res.data.list)
+          this.songs = res.data.list.map((item) => {
+            return createSong(item.musicData)
+          })
+          console.log(this.songs)
         })
       }
     }

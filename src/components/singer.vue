@@ -39,7 +39,6 @@
   import getSinger from '../api/singer'
   import scroll from '../base/scroll.vue'
   import Loading from '../base/loading/loading.vue'
-  import {mapMutations} from 'vuex'
 
   export default {
     data() {
