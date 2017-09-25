@@ -10,7 +10,7 @@
       <ol class="singerList" ref="singer">
         <li v-for="item in singers">
           <h6 class="title">{{item.title}}</h6>
-          <div v-for="subItem in item.items" class="singerInfo">
+          <div v-for="subItem in item.items" class="singerInfo" @click="jumpToSinger(subItem)">
             <img v-lazy="subItem.avatar" alt="" class="avatar">
             <span class="singer-name">{{subItem.name}}</span>
           </div>
@@ -31,6 +31,7 @@
         <loading></loading>
       </div>
     </scroll>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -38,6 +39,7 @@
   import getSinger from '../api/singer'
   import scroll from '../base/scroll.vue'
   import Loading from '../base/loading/loading.vue'
+  import {mapMutations} from 'vuex'
 
   export default {
     data() {
@@ -144,6 +146,12 @@
           this.listHeight.push(child[i].clientHeight + this.listHeight[i])
         }
 //        console.log(this.listHeight)
+      },
+      jumpToSinger(subItem) {
+        this.$router.push({
+          path: `/singer/${subItem.id}`
+        })
+        this.$store.commit('setSinger', subItem)
       }
     },
     watch: {
@@ -252,4 +260,5 @@
     display: flex;
     justify-content: center;
   }
+
 </style>
