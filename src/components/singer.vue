@@ -1,7 +1,13 @@
 <template>
   <div class="singer">
-    <scroll class="scroll" :data="singers">
-      <ol class="singerList">
+    <scroll class="scroll"
+            :data="singers"
+            ref="scroll"
+            @scroll="scroll"
+            :listenScroll="listenScroll"
+            :probeType="3"
+    >
+      <ol class="singerList" ref="singer">
         <li v-for="item in singers">
           <h6 class="title">{{item.title}}</h6>
           <div v-for="subItem in item.items" class="singerInfo">
@@ -10,8 +16,13 @@
           </div>
         </li>
       </ol>
-      <ol class="sidebar">
-        <li v-for="item in sidebar" @click="switchIndex($event)">{{item}}</li>
+      <ol class="sidebar" ref="sidebar">
+        <li v-for="(item,index) in sidebar"
+            @touchstart="switchList"
+            :data-index="index"
+            :class="{'active': currentIndex === index}"
+        >{{item}}
+        </li>
       </ol>
     </scroll>
   </div>
@@ -24,7 +35,11 @@
   export default {
     data() {
       return {
-        singers: []
+        singers: [],
+        scrollY: -1,
+        currentIndex: 0,
+        listHeight: [0],
+        listenScroll: true
       }
     },
     components: {scroll},
@@ -86,10 +101,28 @@
 //          console.log(ret)
           this.singers = hot.concat(ret)
 //          console.log(this.singers)
+          setTimeout(() => {
+            this.calculateHeight()
+          }, 1000)
         })
       },
-      switchIndex(e) {
-        console.log(e.target.value)
+      switchList(e) {
+        let index = e.target.getAttribute('data-index') // 得到点击时的序号
+//        console.log(this.sidebar[index])
+        let singerList = this.$refs.singer.children
+        this.scrollY = -this.listHeight[index]
+        this.$refs.scroll.scrollToElement(singerList[index])
+      },
+      scroll(pos) {
+        this.scrollY = pos.y
+      },
+      calculateHeight() {
+        let child = this.$refs.singer.children
+//        console.log(child.length)
+        for (let i = 0; i < child.length; i++) {
+          this.listHeight.push(child[i].clientHeight + this.listHeight[i])
+        }
+//        console.log(this.listHeight)
       }
     },
     computed: {
@@ -97,6 +130,24 @@
         return this.singers.map((item) => {
           return item.title.substring(0, 1)
         })
+      }
+    },
+    watch: {
+      scrollY(newY) {
+        let listHeight = this.listHeight
+        for (let i = 0; i < listHeight.length; i++) {
+          let height1 = listHeight[i]
+          let height2 = listHeight[i + 1]
+          if (newY >= 0) { // y大于0情况
+            this.currentIndex = 0
+            return;
+          }
+          if ((-newY >= height1 && -newY < height2)) { // 在中间或者超出底部
+            // 这里这个等于号很关键！！！！！否则遍历结束currentIndex = 23
+            this.currentIndex = i
+            return;
+          }
+        }
       }
     }
   }
@@ -124,7 +175,7 @@
   }
 
   .singerInfo {
-    margin-top: 24px;
+    padding-top: 24px;
     .avatar {
       width: 50px;
       border-radius: 50%;
@@ -139,7 +190,7 @@
       font-size: 14px;
     }
     &:last-of-type {
-      margin-bottom: 24px;
+      padding-bottom: 24px;
     }
   }
 
@@ -158,5 +209,9 @@
       margin-top: 4px;
       color: $color-text-l;
     }
+  }
+
+  .active {
+    color: $color-theme !important;
   }
 </style>

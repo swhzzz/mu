@@ -11,7 +11,7 @@
     props: {
       probeType: {
         type: Number,
-        default: 1
+        default: 1 // 1表示有滑动后一定延迟才出发scroll，2表示正常滑动触发，3表示惯性动画的时候也触发
       },
       click: {
         type: Boolean,
@@ -20,12 +20,16 @@
       data: {
         type: Array,
         default: null
+      },
+      listenScroll: {
+        type: Boolean,
+        default: false
       }
     },
     mounted() {
       setTimeout(() => {
         this._initScroll()
-      }, 20) // 20是因为60hz浏览器刷新频率为1/60
+      }, 20) // 20是因为dom渲染到视图更新需要时间，也可以在created里用nextTick，效果相同
     },
     methods: {
       _initScroll() {
@@ -36,9 +40,21 @@
           click: this.click,
           probeType: this.probeType
         })
+        if (this.listenScroll) {
+          let _this = this
+          this.scroll.on('scroll', (pos) => {
+            _this.$emit('scroll', pos)
+          })
+        }
       },
       refresh() {
         this.scroll && this.scroll.refresh()
+      },
+      scrollTo() {
+        this.scroll && this.scroll.scrollTo.apply(this.scroll, arguments)
+      },
+      scrollToElement() {
+        this.scroll && this.scroll.scrollToElement.apply(this.scroll, arguments)
       }
     },
     watch: {
