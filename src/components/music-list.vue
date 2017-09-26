@@ -2,7 +2,7 @@
   <div class="music-list">
     <div class="header">
       <h4 class="title">{{title}}</h4>
-      <i class="iconfont icon-back"></i>
+      <i class="iconfont icon-back" @click="goBackToSinger"></i>
     </div>
     <div class="bg-img" :style="bgImg">
       <div class="filter"></div>
@@ -36,6 +36,13 @@
     computed: {
       bgImg() {
         return `background-image: url(${this.img})`
+      }
+    },
+    methods: {
+      goBackToSinger() {
+        this.$router.push({
+          path: '/singer'
+        })
       }
     }
   }
