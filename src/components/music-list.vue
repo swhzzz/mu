@@ -2,7 +2,7 @@
   <div class="music-list">
     <div class="header">
       <h4 class="title">{{title}}</h4>
-      <i class="iconfont icon-back" @click="goBackToSinger"></i>
+      <i class="iconfont icon-back" @click="back"></i>
     </div>
     <div class="bg-img" :style="bgImg">
       <div class="filter"></div>
@@ -39,10 +39,8 @@
       }
     },
     methods: {
-      goBackToSinger() {
-        this.$router.push({
-          path: '/singer'
-        })
+      back() {
+        this.$router.back()
       }
     }
   }
