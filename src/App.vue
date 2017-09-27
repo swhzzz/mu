@@ -7,23 +7,26 @@
     <keep-alive>
       <router-view></router-view>
     </keep-alive>
+    <player></player>
   </div>
 </template>
 
 <script>
   import MHeader from 'components/m-header.vue'
   import Tab from 'components/tab'
+  import player from './components/player.vue'
 
   export default {
     name: 'app',
     components: {
-      MHeader, Tab
+      MHeader, Tab, player
     }
   }
 </script>
 
 <style scoped lang="scss">
   @import './common/sass/variable.scss';
+
   .wrapper {
     position: sticky;
     top: 0;

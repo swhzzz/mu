@@ -31,7 +31,7 @@
     created() {
 //      console.log(this.singer)
       this._getSingerDetail()
-      console.log(this.title)
+//      console.log(this.title)
     },
     methods: {
       _getSingerDetail() {

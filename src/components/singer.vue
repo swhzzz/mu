@@ -71,7 +71,7 @@
     methods: {
       _getSinger() {
         getSinger().then((res) => {
-//          console.log(res.data.list)
+          console.log(res.data.list)
           let map = {
             hot: {
               title: '热门',

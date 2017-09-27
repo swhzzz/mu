@@ -21,6 +21,8 @@
 
 .icon-play:before { content: "\e647"; }
 
+.icon-play-mini:before { content: "\e647"; }
+
 .icon-next:before { content: "\e648"; }
 
 .icon-icon-3:before { content: "\e649"; }

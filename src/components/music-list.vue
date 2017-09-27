@@ -11,7 +11,7 @@
       <div class="filter"></div>
     </div>
     <scroll class="scroll" :data="songs">
-      <songList :songs="songs"></songList>
+      <songList :songs="songs" @select="selectItem"></songList>
     </scroll>
   </div>
 </template>
@@ -44,6 +44,12 @@
     methods: {
       back() {
         this.$router.back()
+      },
+      selectItem(song, index) {
+        this.$store.dispatch('selectPlay', {
+          list: this.songs,
+          index: index
+        })
       }
     }
   }
@@ -93,7 +99,7 @@
         position: absolute;
         left: 50%;
         bottom: 24px;
-        transform: translate3d(-50%,0,0);
+        transform: translate3d(-50%, 0, 0);
         color: $color-theme;
         padding: 8px 16px;
         border: 1px solid $color-theme;
@@ -101,7 +107,7 @@
         z-index: 11;
         span {
           font-size: 14px;
-          .icon-play{
+          .icon-play {
             font-size: 16px;
             margin-right: 8px;
             vertical-align: middle;

@@ -1,6 +1,24 @@
 const mutations = {
   setSinger(state, payload) {
     state.singer = payload
+  },
+  setIsPlaying(state, flag) {
+    state.isPlaying = flag
+  },
+  setFullScreen(state, flag) {
+    state.fullScreen = flag
+  },
+  setPlayList(state, list) {
+    state.playList = list
+  },
+  setSequence(state, list) {
+    state.sequenceList = list
+  },
+  setMode(state, mode) {
+    state.Mode = mode
+  },
+  setCurrentIndex(state, index) {
+    state.currentIndex = index
   }
 }
 
