@@ -14,6 +14,11 @@
         </div>
       </div>
       <div class="footer">
+        <div class="time">
+          <div class="time-left"><span>{{format(currentTime)}}</span></div>
+          <progress-bar class="progress-wrap" :rate="rate" @jumpProgress="jumpProgress"></progress-bar>
+          <div class="time-right"><span>{{format(currentSong.duration)}}</span></div>
+        </div>
         <div class="icon-wrap">
           <span v-if="mode === 0"><i class="iconfont icon-list-cycle"></i></span>
           <span v-if="mode === 1"><i class="iconfont icon-random"></i></span>
@@ -44,19 +49,22 @@
         <span><i class="iconfont icon-list"></i></span>
       </div>
     </div>
-    <audio ref="audio" :src="currentSong.url"></audio>
+    <audio ref="audio" :src="currentSong.url" @timeupdate="updateTime"></audio>
   </div>
 </template>
 
 <script>
   import {mapGetters} from 'vuex'
+  import progressBar from '../base/progress-bar.vue'
 
   export default {
     data() {
       return {
-        timer: null
+        timer: null,
+        currentTime: 0
       }
     },
+    components: {progressBar},
     computed: {
       ...mapGetters(['playList', 'fullScreen', 'singer', 'currentSong', 'mode', 'isPlaying', 'currentIndex']),
       rotateCls() {
@@ -65,12 +73,9 @@
       bgCls() {
         return `background-image: url(${this.currentSong.image})`
       },
-      songTime() {
-        return this.currentSong.duration
+      rate() {
+        return this.currentTime / this.currentSong.duration
       }
-    },
-    created() {
-      console.log(this.songTime)
     },
     methods: {
       toggleFullScreen() {
@@ -96,6 +101,19 @@
             newIndex: next
           })
         }, 300)
+      },
+      updateTime(e) {
+        this.currentTime = e.target.currentTime
+      },
+      format(interval) {
+        interval = interval | 0
+        let minute = interval / 60 | 0
+        let second = interval % 60
+        second = second < 10 ? `0${second}` : second
+        return `${minute}:${second}`
+      },
+      jumpProgress(rate) {
+        this.$refs.audio.currentTime = rate * this.currentSong.duration
       }
     },
     watch: {
@@ -176,7 +194,7 @@
           color: $color-theme;
         }
         .song-name {
-          position:absolute;
+          position: absolute;
           left: 20%;
           width: 60%;
           white-space: nowrap;
@@ -200,10 +218,31 @@
     }
     .footer {
       position: absolute;
-      bottom: 10%;
+      top: 80%;
       display: flex;
+      flex-direction: column;
       width: 100%;
-      justify-content:center;
+      justify-content: center;
+      .time {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        padding: 16px 48px;
+        font-size: 12px;
+        .time-left {
+          width: 32px;
+          box-sizing: border-box;
+          padding-right: 8px;
+        }
+        .progress-wrap {
+          width: 80%;
+        }
+        .time-right {
+          width: 32px;
+          box-sizing: border-box;
+          padding-left: 8px;
+        }
+      }
       .icon-wrap {
         display: flex;
         justify-content: space-around;
