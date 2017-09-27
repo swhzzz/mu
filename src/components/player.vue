@@ -14,15 +14,19 @@
         </div>
       </div>
       <div class="footer">
-        <span v-if="mode === 0"><i class="iconfont icon-list-cycle"></i></span>
-        <span v-if="mode === 1"><i class="iconfont icon-random"></i></span>
-        <span v-if="mode === 2"><i class="iconfont icon-single-cycle"></i></span>
-        <span @click="toPrevSong"><i class="iconfont icon-prev"></i></span>
-        <span v-if="isPlaying" @click="togglePlaying"><i class="iconfont icon-pause"></i></span>
-        <span v-if="!isPlaying" @click="togglePlaying"><i class="iconfont icon-play"></i></span>
-        <span @click="toNextSong"><i class="iconfont icon-next"></i></span>
-        <span><i class="iconfont icon-heart"></i></span>
+        <div class="icon-wrap">
+          <span v-if="mode === 0"><i class="iconfont icon-list-cycle"></i></span>
+          <span v-if="mode === 1"><i class="iconfont icon-random"></i></span>
+          <span v-if="mode === 2"><i class="iconfont icon-single-cycle"></i></span>
+          <span @click="toPrevSong"><i class="iconfont icon-prev"></i></span>
+          <span v-if="isPlaying" @click="togglePlaying"><i class="iconfont icon-pause"></i></span>
+          <span v-if="!isPlaying" @click="togglePlaying"><i class="iconfont icon-play"></i></span>
+          <span @click="toNextSong"><i class="iconfont icon-next"></i></span>
+          <span><i class="iconfont icon-heart1"></i></span>
+        </div>
       </div>
+      <div class="bg" :style="bgCls"></div>
+      <div class="layer"></div>
     </div>
     <div class="mini-player" v-show="!fullScreen" @click="toggleFullScreen">
       <div class="left">
@@ -57,10 +61,16 @@
       ...mapGetters(['playList', 'fullScreen', 'singer', 'currentSong', 'mode', 'isPlaying', 'currentIndex']),
       rotateCls() {
         return this.isPlaying ? 'rotate' : 'rotate pause'
+      },
+      bgCls() {
+        return `background-image: url(${this.currentSong.image})`
+      },
+      songTime() {
+        return this.currentSong.duration
       }
     },
     created() {
-      console.log(this.currentSong)
+      console.log(this.songTime)
     },
     methods: {
       toggleFullScreen() {
@@ -109,13 +119,38 @@
 
   .icon-single-cycle, .icon-random,
   .icon-list-cycle, .icon-prev,
-  .icon-next, .icon-heart,
+  .icon-next, .icon-heart1,
   .icon-play-mini, .icon-list {
     font-size: 32px;
+    color: $color-theme;
   }
 
   .icon-play, .icon-pause {
     font-size: 40px;
+    color: $color-theme;
+  }
+
+  .player {
+    .bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      background-size: cover;
+      background-position: center;
+      filter: blur(30px);
+    }
+    .layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, .4);
+      z-index: -1;
+    }
   }
 
   .normal-player {
@@ -132,6 +167,7 @@
       .wrap {
         position: relative;
         padding: 8px 0;
+        height: 32px;
         .icon-back {
           position: absolute;
           left: 24px;
@@ -140,6 +176,12 @@
           color: $color-theme;
         }
         .song-name {
+          position:absolute;
+          left: 20%;
+          width: 60%;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
           text-align: center;
         }
       }
@@ -160,11 +202,16 @@
       position: absolute;
       bottom: 10%;
       display: flex;
-      justify-content: space-around;
-      align-items: center;
       width: 100%;
-      padding: 0 32px;
-      text-align: center;
+      justify-content:center;
+      .icon-wrap {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        width: 100%;
+        padding: 0 32px;
+        text-align: center;
+      }
     }
   }
 
