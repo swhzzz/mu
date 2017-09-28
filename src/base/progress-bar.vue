@@ -1,6 +1,6 @@
 <template>
   <div class="progress-bar-wrap" @click="progressClick">
-    <div class="progress-bar" ref="progressBar" >
+    <div class="progress-bar" ref="progressBar">
       <div class="bar" ref="bar"></div>
       <div class="btn" ref="btn"></div>
     </div>
@@ -18,7 +18,7 @@
     methods: {
       progressClick(e) {
         let diffWidth = e.offsetX
-        this.$emit('jumpProgress', diffWidth / (this.$refs.progressBar.clientWidth - 12 ))
+        this.$emit('jumpProgress', diffWidth / (this.$refs.progressBar.clientWidth - 12))
         this.setWidth(diffWidth)
       },
       setWidth(diffWidth) {
@@ -39,30 +39,32 @@
 
 <style lang="scss" scoped>
   @import '../common/sass/index';
-.progress-bar-wrap{
-  padding: 8px 0;
-  width: 100%;
-  .progress-bar {
-    position: relative;
+
+  .progress-bar-wrap {
+    padding: 8px 0;
     width: 100%;
-    height: 2px;
-    background-color: #fff;
-    .bar {
-      position: absolute;
-      top: 0;
-      background-color: $color-theme;
+    .progress-bar {
+      position: relative;
+      width: 100%;
       height: 2px;
-      width: 0;
+      background-color: #fff;
+      .bar {
+        position: absolute;
+        top: 0;
+        background-color: $color-theme;
+        height: 2px;
+        width: 0;
+      }
+      .btn {
+        position: absolute;
+        left: 0;
+        top: -5px;
+        width: 12px;
+        height: 12px;
+        background-color: $color-theme;
+        border: 1px solid $color-theme;
+        border-radius: 50%;
+      }
     }
-    .btn {
-      position: absolute;
-      left: 0;
-      top: -5px;
-      width: 12px;
-      height: 12px;
-      background-color: $color-theme;
-      border: 1px solid $color-theme;
-      border-radius: 50%;
-    }
-  }  }
+  }
 </style>

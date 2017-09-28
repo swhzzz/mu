@@ -22,6 +22,7 @@
     },
     methods: {
       selectItem(song, index) {
+        console.log(this.songs)
         this.$emit('select', song, index)
       }
     }

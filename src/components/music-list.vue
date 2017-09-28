@@ -6,7 +6,7 @@
     </div>
     <div class="bg-img" :style="bgImg">
       <div class="random-play">
-        <span><i class="iconfont icon-play"></i>随机播放歌曲</span>
+        <span @click="randomPlay"><i class="iconfont icon-play"></i>随机播放歌曲</span>
       </div>
       <div class="filter"></div>
     </div>
@@ -19,6 +19,7 @@
 <script>
   import songList from '../base/songlist.vue'
   import scroll from '../base/scroll.vue'
+  import {messList} from '../api/util'
 
   export default {
     props: {
@@ -50,6 +51,11 @@
           list: this.songs,
           index: index
         })
+      },
+      randomPlay() {
+        let randomList = messList(this.songs)
+        let list = this.songs
+        this.$store.dispatch('randomPlay', {list, randomList})
       }
     }
   }

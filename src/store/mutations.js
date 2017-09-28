@@ -15,7 +15,7 @@ const mutations = {
     state.sequenceList = list
   },
   setMode(state, mode) {
-    state.Mode = mode
+    state.mode = mode
   },
   setCurrentIndex(state, index) {
     state.currentIndex = index

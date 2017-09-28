@@ -20,9 +20,7 @@
           <div class="time-right"><span>{{format(currentSong.duration)}}</span></div>
         </div>
         <div class="icon-wrap">
-          <span v-if="mode === 0"><i class="iconfont icon-list-cycle"></i></span>
-          <span v-if="mode === 1"><i class="iconfont icon-random"></i></span>
-          <span v-if="mode === 2"><i class="iconfont icon-single-cycle"></i></span>
+          <span @click="changeMode"><i :class="modeCls"></i></span>
           <span @click="toPrevSong"><i class="iconfont icon-prev"></i></span>
           <span v-if="isPlaying" @click="togglePlaying"><i class="iconfont icon-pause"></i></span>
           <span v-if="!isPlaying" @click="togglePlaying"><i class="iconfont icon-play"></i></span>
@@ -49,13 +47,15 @@
         <span><i class="iconfont icon-list"></i></span>
       </div>
     </div>
-    <audio ref="audio" :src="currentSong.url" @timeupdate="updateTime"></audio>
+    <audio ref="audio" :src="currentSong.url" @timeupdate="updateTime" @ended="end"></audio>
   </div>
 </template>
 
 <script>
   import {mapGetters} from 'vuex'
   import progressBar from '../base/progress-bar.vue'
+  import {playMode} from '../common/js/config'
+  import {messList} from '../api/util'
 
   export default {
     data() {
@@ -66,7 +66,7 @@
     },
     components: {progressBar},
     computed: {
-      ...mapGetters(['playList', 'fullScreen', 'singer', 'currentSong', 'mode', 'isPlaying', 'currentIndex']),
+      ...mapGetters(['playList', 'sequenceList', 'fullScreen', 'singer', 'currentSong', 'mode', 'isPlaying', 'currentIndex']),
       rotateCls() {
         return this.isPlaying ? 'rotate' : 'rotate pause'
       },
@@ -75,6 +75,15 @@
       },
       rate() {
         return this.currentTime / this.currentSong.duration
+      },
+      modeCls() {
+        const map = {
+          0: 'icon-sequence',
+          1: 'icon-loop',
+          2: 'icon-random'
+        }
+        let index = this.mode
+        return `iconfont ${map[index]}`
       }
     },
     methods: {
@@ -114,10 +123,39 @@
       },
       jumpProgress(rate) {
         this.$refs.audio.currentTime = rate * this.currentSong.duration
+      },
+      changeMode() {
+        let mode = (this.mode + 1) % 3
+        this.$store.commit('setMode', mode)
+        let list = []
+        if (mode === playMode.random) {
+          list = messList(this.sequenceList)
+        } else {
+          list = this.sequenceList
+        }
+        this.resetCurrentIndex(list) //
+        this.$store.commit('setPlayList', list)
+      },
+      resetCurrentIndex(list) {
+        let index = list.findIndex((item) => {
+          return item.id === this.currentSong.id
+        })
+        this.$store.commit('setCurrentIndex', index)
+      },
+      end() {
+        if (this.mode === playMode.loop) {
+          this.$refs.audio.currentTime = 0
+          this.$refs.audio.play()
+        } else {
+          this.toNextSong()
+        }
       }
     },
     watch: {
-      currentSong() {
+      currentSong(newSong, oldSong) {
+        if (newSong === oldSong) {
+          return
+        }
         this.$nextTick(() => {
           this.$refs.audio.play()
         })
@@ -135,8 +173,8 @@
 <style lang="scss" scoped>
   @import '../common/sass/index';
 
-  .icon-single-cycle, .icon-random,
-  .icon-list-cycle, .icon-prev,
+  .icon-sequence, .icon-random,
+  .icon-loop, .icon-prev,
   .icon-next, .icon-heart1,
   .icon-play-mini, .icon-list {
     font-size: 32px;

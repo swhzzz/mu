@@ -33,9 +33,9 @@
 
 .icon-pause:before { content: "\e64b"; }
 
-.icon-single-cycle:before { content: "\e64c"; }
+.icon-loop:before { content: "\e64c"; }
 
-.icon-list-cycle:before { content: "\e64d"; }
+.icon-sequence:before { content: "\e64d"; }
 
 .icon-search:before { content: "\e64e"; }
 
