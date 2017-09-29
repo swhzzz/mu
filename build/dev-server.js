@@ -39,6 +39,25 @@ apiRoutes.get('/getSongList', (req, res) => {
     console.log(e)
   })
 })
+
+apiRoutes.get('/lyric', (req, res) => {
+  var url = 'https://c.y.qq.com/lyric/fcgi-bin/fcg_query_lyric_new.fcg'
+  axios.get(url, {
+    params: req.query,
+    headers: {
+      referer: 'https://c.y.qq.com/',
+      host: 'c.y.qq.com'
+    }
+  }).then((response) => {
+    var ret = response.data
+    var reg = /^\w+\(({[^()]+})\)$/ // 圆括号的用法
+    var matches = ret.match(reg)
+    res.json(JSON.parse(matches[1]))
+  }).catch((e) => {
+    console.log(e)
+  })
+})
+
 app.use('/api', apiRoutes)
 
 var compiler = webpack(webpackConfig)

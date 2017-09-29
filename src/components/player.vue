@@ -56,6 +56,7 @@
   import progressBar from '../base/progress-bar.vue'
   import {playMode} from '../common/js/config'
   import {messList} from '../api/util'
+  import {getLyric} from '../api/lyric'
 
   export default {
     data() {
@@ -149,6 +150,9 @@
         } else {
           this.toNextSong()
         }
+      },
+      _getLyric() {
+        getLyric(this.currentSong.mid)
       }
     },
     watch: {
@@ -158,6 +162,7 @@
         }
         this.$nextTick(() => {
           this.$refs.audio.play()
+          this._getLyric()
         })
       },
       isPlaying(newPlaying) {
