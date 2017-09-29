@@ -27,7 +27,7 @@
       <div class="fixed-title" v-if="fixedTitle" ref="fixed">
         <h6>{{fixedTitle}}</h6>
       </div>
-      <div class="wrapper" v-if="!singers.length">
+      <div class="load-wrap" v-if="!singers.length">
         <loading></loading>
       </div>
     </scroll>
@@ -258,9 +258,12 @@
     }
   }
 
-  .wrapper {
+  .load-wrap {
     display: flex;
+    height:100%;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
   }
 
 </style>

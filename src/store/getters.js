@@ -1,5 +1,7 @@
 export const singer = state => state.singer
 
+export const songSheetData = state => state.songSheetData
+
 export const isPlaying = state => state.isPlaying
 
 export const fullScreen = state => state.fullScreen

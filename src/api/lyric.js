@@ -1,5 +1,6 @@
 import axios from 'axios'
 import {commonParams} from './config'
+import {Base64} from 'js-base64' // 这里注意要加中括号
 
 export const getLyric = function (songmid) {
   let data = Object.assign({}, commonParams, {
@@ -11,9 +12,9 @@ export const getLyric = function (songmid) {
     pcachetime: +new Date()
   })
 
-  axios.get('/api/lyric', {
+  return axios.get('/api/lyric', {
     params: data
   }).then((res) => {
-    console.log(res.data.lyric)
+    return Promise.resolve(Base64.decode(res.data.lyric))
   })
 }

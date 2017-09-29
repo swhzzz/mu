@@ -11,11 +11,11 @@
         </div>
         <div class="hotSongList-wrap">
           <h5 class="hotSongList-title">热门歌单推荐</h5>
-          <div v-if="!hotSongList.length" class="loading-wrap">
+          <div v-if="!hotSongList.length" class="load-wrap">
             <loading></loading>
           </div>
-          <ul v-else class="hotSongList" v-for="item in hotSongList">
-            <li class="listInfo">
+          <ul v-else class="hotSongList" >
+            <li class="listInfo" v-for="item in hotSongList" @click="handleClick(item)">
               <div><img v-lazy="item.imgurl" alt="" class="icon" @load="loadImage"></div>
               <div class="listInfo-text">
                 <h4>{{item.creator.name}}</h4>
@@ -26,6 +26,7 @@
         </div>
       </div>
     </scroll>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -68,7 +69,14 @@
       _getSongList() {
         getSongList().then((res) => {
           this.hotSongList = res.data.list
+          console.log(res.data.list)
         })
+      },
+      handleClick(item) {
+        this.$router.push({
+          path: `/recommend/${item.dissid}`
+        })
+        this.$store.commit('setSongSheetData', item)
       }
     }
   }
@@ -101,9 +109,12 @@
     }
   }
 
-  .loading-wrap {
+  .load-wrap {
     display: flex;
+    height:100%;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
   }
 
   .listInfo {

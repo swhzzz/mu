@@ -57,12 +57,14 @@
   import {playMode} from '../common/js/config'
   import {messList} from '../api/util'
   import {getLyric} from '../api/lyric'
+  import Lyric from 'lyric-parser'
 
   export default {
     data() {
       return {
         timer: null,
-        currentTime: 0
+        currentTime: 0,
+        lyric: null
       }
     },
     components: {progressBar},
@@ -152,7 +154,10 @@
         }
       },
       _getLyric() {
-        getLyric(this.currentSong.mid)
+        getLyric(this.currentSong.mid).then((lyric) => {
+          this.lyric = new Lyric(lyric)
+          console.log(this.lyric)
+        })
       }
     },
     watch: {

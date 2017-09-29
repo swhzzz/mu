@@ -2,6 +2,7 @@ import {playMode} from '../common/js/config'
 
 const state = {
   singer: {},
+  songSheetData: {},
   isPlaying: false,
   fullScreen: false,
   playList: [],
