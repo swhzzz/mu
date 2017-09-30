@@ -29,23 +29,18 @@
       }
     },
     created() {
-//      console.log(this.singer)
       this._getSingerDetail()
     },
     methods: {
       _getSingerDetail() {
         let singerMid = this.singer.singerMid
         if (!singerMid) { // 在detail页面刷新，返回歌手页面
-          this.$router.push({
-            path: '/singer'
-          })
+          this.$router.back()
         }
         getSingerDetail(singerMid).then((res) => {
-//          console.log(res.data.list)
           this.songs = res.data.list.map((item) => {
             return createSong(item.musicData)
           })
-//          console.log(this.songs)
         })
       }
     }

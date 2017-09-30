@@ -101,8 +101,8 @@
     .bg-img {
       position: relative;
       width: 100%;
-      padding-top: 70%;
-      transform-origin: top;
+      padding-top: 60%;
+      background-position: 0%, 10%;
       background-size: cover;
       z-index: 1;
       .random-play {
@@ -141,7 +141,7 @@
     }
     .scroll-wrap {
       position: fixed;
-      top: 260px;
+      top: 220px;
       bottom: 0;
       width: 100%;
       .scroll {

@@ -6,7 +6,7 @@
           <i class="iconfont icon-back" @click="toggleFullScreen"></i>
           <h3 class="song-name">{{currentSong.name}}</h3>
         </div>
-        <h5 class="singer-name">{{singer.name}}</h5>
+        <h5 class="singer-name">{{currentSong.singer}}</h5>
       </div>
       <div class="main">
         <div>
@@ -38,7 +38,7 @@
         </div>
         <div class="content">
           <h5>{{currentSong.name}}</h5>
-          <span>{{singer.name}}</span>
+          <span>{{currentSong.singer}}</span>
         </div>
       </div>
       <div class="right">
@@ -69,7 +69,7 @@
     },
     components: {progressBar},
     computed: {
-      ...mapGetters(['playList', 'sequenceList', 'fullScreen', 'singer', 'currentSong', 'mode', 'isPlaying', 'currentIndex']),
+      ...mapGetters(['playList', 'sequenceList', 'fullScreen', 'currentSong', 'mode', 'isPlaying', 'currentIndex']),
       rotateCls() {
         return this.isPlaying ? 'rotate' : 'rotate pause'
       },
@@ -327,6 +327,10 @@
         justify-content: center;
         h5 {
           color: #fff;
+          width: 200px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
           padding-bottom: 8px;
         }
         span {

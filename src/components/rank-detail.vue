@@ -1,5 +1,7 @@
 <template>
-  <music-list :title="title" :img="img" :songs="songs"></music-list>
+  <transition name="slide">
+    <music-list :title="title" :img="img" :songs="songs"></music-list>
+  </transition>
 </template>
 
 <script>
@@ -28,10 +30,12 @@
     },
     methods: {
       _getRankSongs() {
+        if (!this.topList.id) {
+          this.$router.back()
+        }
         getRankSongs(this.topList.id).then((res) => {
 //          console.log(res.songlist)
-          this.songs = res.songlist.map((item)=>{
-            console.log(item.data)
+          this.songs = res.songlist.map((item) => {
             return createSong(item.data)
           })
         })
@@ -43,4 +47,13 @@
   }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+
+  .slide-enter-active, .slide-leave-active {
+    transition: all 0.3s;
+  }
+
+  .slide-enter, .slide-leave-to {
+    transform: translate3d(100%, 0, 0);
+  }
+</style>
