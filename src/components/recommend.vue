@@ -69,14 +69,14 @@
       _getSongList() {
         getSongList().then((res) => {
           this.hotSongList = res.data.list
-          console.log(res.data.list)
+//          console.log(res.data.list)
         })
       },
       handleClick(item) {
+        this.$store.commit('setSongSheetData', item)
         this.$router.push({
           path: `/recommend/${item.dissid}`
         })
-        this.$store.commit('setSongSheetData', item)
       }
     }
   }

@@ -62,7 +62,7 @@
       },
       fixedTitle() {
         if (this.scrollY > 0) {
-          return;
+          return
         }
         return this.singers[this.currentIndex] ? this.singers[this.currentIndex].title : ''
       }

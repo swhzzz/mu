@@ -5,6 +5,9 @@ const mutations = {
   setSongSheetData(state, payload) {
     state.songSheetData = payload
   },
+  setTopList(state, payload) {
+    state.topList = payload
+  },
   setIsPlaying(state, flag) {
     state.isPlaying = flag
   },

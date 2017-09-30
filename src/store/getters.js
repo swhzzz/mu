@@ -2,6 +2,8 @@ export const singer = state => state.singer
 
 export const songSheetData = state => state.songSheetData
 
+export const topList = state => state.topList
+
 export const isPlaying = state => state.isPlaying
 
 export const fullScreen = state => state.fullScreen

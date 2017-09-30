@@ -14,8 +14,8 @@
       <div class="load-wrap">
         <loading v-show="!topList.length"></loading>
       </div>
-      <router-view></router-view>
     </scroll>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -41,12 +41,15 @@
       _getTopList() {
         getTopList().then((res) => {
           this.topList = res.data.topList
+//          console.log(this.topList)
         })
       },
       handleClick(item) {
+//        console.log(item)
         this.$router.push({
           path: `/rank/${item.listenCount}`
         })
+        this.$store.commit('setTopList', item)
       }
     }
   }

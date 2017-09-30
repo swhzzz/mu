@@ -45,7 +45,7 @@
           this.songs = res.data.list.map((item) => {
             return createSong(item.musicData)
           })
-          console.log(this.songs)
+//          console.log(this.songs)
         })
       }
     }

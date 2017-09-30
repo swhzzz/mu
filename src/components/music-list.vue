@@ -10,9 +10,11 @@
       </div>
       <div class="filter"></div>
     </div>
-    <scroll class="scroll" :data="songs">
-      <songList :songs="songs" @select="selectItem"></songList>
-    </scroll>
+    <div class="scroll-wrap">
+      <scroll class="scroll" :data="songs">
+        <songList :songs="songs" @select="handleSelect"></songList>
+      </scroll>
+    </div>
   </div>
 </template>
 
@@ -46,7 +48,8 @@
       back() {
         this.$router.back()
       },
-      selectItem(song, index) {
+      handleSelect(song, index) {
+        console.log(this.songs)
         this.$store.dispatch('selectPlay', {
           list: this.songs,
           index: index
@@ -78,6 +81,7 @@
       top: 0;
       width: 100%;
       padding: 24px 0;
+      z-index: 2;
       .title {
         position: absolute;
         left: 50%;
@@ -100,7 +104,7 @@
       padding-top: 70%;
       transform-origin: top;
       background-size: cover;
-      z-index: -1;
+      z-index: 1;
       .random-play {
         position: absolute;
         left: 50%;
@@ -135,13 +139,15 @@
         background: rgba(0, 0, 0, 0.4);
       }
     }
-    .scroll {
-      position: absolute;
+    .scroll-wrap {
+      position: fixed;
+      top: 260px;
+      bottom: 0;
       width: 100%;
-      height: 100%;
-      overflow: hidden;
+      .scroll {
+        height: 100%;
+        overflow: hidden;
+      }
     }
   }
-
-
 </style>
