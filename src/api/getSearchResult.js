@@ -1,7 +1,7 @@
 import jsonp from '../common/js/jsonp'
 import {commonParams, options} from './config'
 
-export const getSearchResult = function (value) {
+export const getSearchResult = function (value, index) {
   let url = 'https://szc.y.qq.com/soso/fcgi-bin/search_for_qq_cp?'
   let data = Object.assign({}, commonParams, {
     uin: 0,
@@ -17,7 +17,7 @@ export const getSearchResult = function (value) {
     aggr: 0,
     perpage: 20,
     n: 20,
-    p: 1,
+    p: index,
     remoteplace: 'yxt.mqq.all'
   })
   return jsonp(url, data, options)
