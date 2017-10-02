@@ -2,10 +2,10 @@
   <div class="recommend" ref="recommend">
     <scroll ref="scroll" :data="hotSongList" class="scroll">
       <div>
-        <div v-if="sliderPicInfos.length" class="slider-wrap">
+        <div v-if="sliderPicInfos.length">
           <slider>
             <div v-for="item in sliderPicInfos">
-              <a :href="item.linkUrl"><img :src="item.picUrl" alt=""></a>
+              <a :href="item.linkUrl"><img :src="item.picUrl"  @load="loadImage"></a>
             </div>
           </slider>
         </div>
@@ -16,7 +16,7 @@
           </div>
           <ul v-else class="hotSongList">
             <li class="listInfo" v-for="item in hotSongList" @click="handleClick(item)">
-              <div><img v-lazy="item.imgurl" alt="" class="icon" @load="loadImage"></div>
+              <div><img v-lazy="item.imgurl" alt="" class="icon"></div>
               <div class="listInfo-text">
                 <h4>{{item.creator.name}}</h4>
                 <p>{{item.dissname}}</p>
@@ -85,8 +85,7 @@
         this.$refs.recommend.style.bottom = bottom
         this.$refs.scroll.refresh()
       }
-    },
-    watch: {}
+    }
   }
 </script>
 

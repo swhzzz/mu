@@ -3,7 +3,11 @@
     <div class="slider-group" ref="sliderGroup">
       <slot></slot>
     </div>
-    <div class="dots"></div>
+    <div class="dots-wrap">
+      <ul class="dots">
+        <li class="dot" v-for="(item,index) in dots" :class="{'active': index === currentIndex}"></li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -25,11 +29,23 @@
         default: 4000
       }
     },
+    data() {
+      return {
+        dots: [],
+        currentIndex: 0,
+        timer: null
+      }
+    },
     mounted() {
       setTimeout(() => {
         this.setSliderWidth()
+        this.initDots()
         this.initSlider()
       }, 20)
+
+      if (this.autoPlay) {
+        this.play()
+      }
     },
     methods: {
       setSliderWidth() {
@@ -53,12 +69,32 @@
           scrollY: false,
           momentum: false,
           snap: {
-            Loop: true,
-            Threshold: 0.3,
-            Speed: 400
-          },
-          click: true
+            loop: true,
+            threshold: 0.3,
+            speed: 400
+          }
         })
+        this.slider.on('scrollEnd', () => {
+          let pageIndex = this.slider.getCurrentPage().pageX // 当前播放的slider的位置
+          this.currentIndex = pageIndex - 1
+
+          if (this.autoPlay) {
+            clearTimeout(this.timer)
+            this.play()
+          }
+        })
+      },
+      initDots() {
+        this.dots = new Array(5)
+      },
+      play() {
+        let pageIndex = this.currentIndex + 1 // 当前的轮播图下标
+        if (this.loop) {
+          pageIndex++
+        }
+        this.timer = setTimeout(() => {
+          this.slider.goToPage(pageIndex, 0, 400)
+        }, 2000)
       }
     }
   }
@@ -67,6 +103,7 @@
 
 <style lang="scss" scoped>
   .slider {
+    position: relative;
     overflow: hidden;
     .slider-group {
       position: relative;
@@ -78,6 +115,27 @@
         }
         img {
           width: 100%;
+        }
+      }
+    }
+    .dots-wrap {
+      width: 80px;
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translate3d(-50%, 0, 0);
+      .dots {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        li {
+          width: 8px;
+          height: 8px;
+          border-radius: 12px;
+          background-color: rgba(255, 255, 255, 0.8);
+          &.active {
+            width: 20px;
+          }
         }
       }
     }

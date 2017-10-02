@@ -94,6 +94,7 @@
         left: 50%;
         top: 50%;
         transform: translate3d(-50%, -50%, 0);
+        white-space: nowrap;
         color: #fff;
       }
       .icon-back {

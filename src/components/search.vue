@@ -3,7 +3,7 @@
     <div class="search-box-wrap">
       <search-box @listenValue="handleInput"></search-box>
     </div>
-    <div class="hot-search-wrap" v-show="songList.length === 0">
+    <div class="hot-search-wrap" v-show="songList.length === 0 || !query">
       <h5 class="hot-search">热门搜索</h5>
       <ul class="hotKeys-list">
         <li v-for="item in hotKeys" @click="handleClick(item)">{{item}}</li>
