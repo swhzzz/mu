@@ -9,8 +9,8 @@
         <li v-for="item in hotKeys" @click="handleClick(item)">{{item}}</li>
       </ul>
     </div>
-    <div class="searchList-wrap" v-if="songList.length>0">
-      <scroll :data="songList" class="scroll" :pullup="true" @scrollToEnd="searchMore">
+    <div class="searchList-wrap" v-if="songList.length>0" ref="searchWrap">
+      <scroll :data="songList" class="scroll" :pullup="true" @scrollToEnd="searchMore" ref="scroll">
         <search-list :songList="songs"></search-list>
       </scroll>
     </div>
@@ -24,9 +24,11 @@
   import {createSong} from '../api/song'
   import SearchList from './search-list.vue'
   import scroll from '../base/scroll.vue'
+  import {playListMixin} from '../common/js/mixin'
   //  import loading from '../base/loading/loading.vue'
 
   export default {
+    mixins: [playListMixin],
     data() {
       return {
         hotKeys: [],
@@ -85,6 +87,11 @@
       },
       searchMore() {
         this._getSearchResult(this.query)
+      },
+      handlePlayList(list) {
+        const bottom = list.length > 0 ? '58px' : ''
+        this.$refs.searchWrap.style.bottom = bottom
+        this.$refs.scroll.refresh()
       }
     }
   }

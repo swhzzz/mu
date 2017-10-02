@@ -1,5 +1,5 @@
 <template>
-  <div class="recommend">
+  <div class="recommend" ref="recommend">
     <scroll ref="scroll" :data="hotSongList" class="scroll">
       <div>
         <div v-if="sliderPicInfos.length" class="slider-wrap">
@@ -14,7 +14,7 @@
           <div v-if="!hotSongList.length" class="load-wrap">
             <loading></loading>
           </div>
-          <ul v-else class="hotSongList" >
+          <ul v-else class="hotSongList">
             <li class="listInfo" v-for="item in hotSongList" @click="handleClick(item)">
               <div><img v-lazy="item.imgurl" alt="" class="icon" @load="loadImage"></div>
               <div class="listInfo-text">
@@ -35,8 +35,10 @@
   import Slider from '../base/slider.vue'
   import Loading from '../base/loading/loading.vue'
   import scroll from '../base/scroll.vue'
+  import {playListMixin} from '../common/js/mixin'
 
   export default {
+    mixins: [playListMixin],
     data() {
       return {
         sliderPicInfos: {},
@@ -77,8 +79,14 @@
         this.$router.push({
           path: `/recommend/${item.dissid}`
         })
+      },
+      handlePlayList(list) {
+        const bottom = list.length > 0 ? '58px' : ''
+        this.$refs.recommend.style.bottom = bottom
+        this.$refs.scroll.refresh()
       }
-    }
+    },
+    watch: {}
   }
 </script>
 
@@ -111,7 +119,7 @@
 
   .load-wrap {
     display: flex;
-    height:100%;
+    height: 100%;
     flex-direction: column;
     justify-content: center;
     align-items: center;

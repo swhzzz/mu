@@ -38,7 +38,7 @@
         </div>
         <div class="content">
           <h5>{{currentSong.name}}</h5>
-          <span>{{currentSong.singer}}</span>
+          <p>{{currentSong.singer}}</p>
         </div>
       </div>
       <div class="right">
@@ -333,7 +333,11 @@
           text-overflow: ellipsis;
           padding-bottom: 8px;
         }
-        span {
+        p {
+          width: 200px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
           font-size: 14px;
           color: $color-text-l;
         }

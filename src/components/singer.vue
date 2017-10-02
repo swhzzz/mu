@@ -1,5 +1,5 @@
 <template>
-  <div class="singer">
+  <div class="singer" ref="singer">
     <scroll class="scroll"
             :data="singers"
             ref="scroll"
@@ -7,7 +7,7 @@
             :listenScroll="listenScroll"
             :probeType="3"
     >
-      <ol class="singerList" ref="singer">
+      <ol class="singerList" ref="singerList">
         <li v-for="item in singers">
           <h6 class="title">{{item.title}}</h6>
           <div v-for="subItem in item.items" class="singerInfo" @click="jumpToSinger(subItem)">
@@ -39,8 +39,10 @@
   import getSinger from '../api/singer'
   import scroll from '../base/scroll.vue'
   import Loading from '../base/loading/loading.vue'
+  import {playListMixin} from '../common/js/mixin'
 
   export default {
+    mixins: [playListMixin],
     data() {
       return {
         singers: [],
@@ -71,7 +73,7 @@
     methods: {
       _getSinger() {
         getSinger().then((res) => {
-//          console.log(res.data.list)
+          console.log(res.data.list)
           let map = {
             hot: {
               title: '热门',
@@ -110,6 +112,7 @@
           // 放到数组里
           let hot = []
           let ret = []
+//          console.log(map)
           for (let key in map) {
             if (map[key].title === '热门') {
               hot.push(map[key])
@@ -133,7 +136,7 @@
       switchList(e) {
         let index = e.target.getAttribute('data-index') // 得到点击时的序号
 //        console.log(this.sidebar[index])
-        let singerList = this.$refs.singer.children
+        let singerList = this.$refs.singerList.children
         this.scrollY = -this.listHeight[index]
         this.$refs.scroll.scrollToElement(singerList[index])
       },
@@ -141,7 +144,8 @@
         this.scrollY = pos.y
       },
       calculateHeight() {
-        let child = this.$refs.singer.children
+        let child = this.$refs.singerList.children
+//        console.log(child.length)
         for (let i = 0; i < child.length; i++) {
           this.listHeight.push(child[i].clientHeight + this.listHeight[i])
         }
@@ -152,6 +156,11 @@
           path: `/singer/${subItem.singerMid}`
         })
         this.$store.commit('setSinger', subItem)
+      },
+      handlePlayList(list) {
+        const bottom = list.length > 0 ? '58px' : ''
+        this.$refs.singer.style.bottom = bottom
+        this.$refs.scroll.refresh()
       }
     },
     watch: {
@@ -258,7 +267,7 @@
 
   .load-wrap {
     display: flex;
-    height:100%;
+    height: 100%;
     flex-direction: column;
     justify-content: center;
     align-items: center;

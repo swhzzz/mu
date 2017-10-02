@@ -10,8 +10,8 @@
       </div>
       <div class="filter"></div>
     </div>
-    <div class="scroll-wrap">
-      <scroll class="scroll" :data="songs">
+    <div class="scroll-wrap" ref="scrollWrap">
+      <scroll class="scroll" :data="songs" ref="scroll">
         <songList :songs="songs" @select="handleSelect"></songList>
       </scroll>
     </div>
@@ -22,8 +22,10 @@
   import songList from '../base/songlist.vue'
   import scroll from '../base/scroll.vue'
   import {messList} from '../api/util'
+  import {playListMixin} from '../common/js/mixin'
 
   export default {
+    mixins: [playListMixin],
     props: {
       title: {
         type: String,
@@ -59,6 +61,11 @@
         let randomList = messList(this.songs)
         let list = this.songs
         this.$store.dispatch('randomPlay', {list, randomList})
+      },
+      handlePlayList(list) {
+        const bottom = list.length > 0 ? '58px' : 0
+        this.$refs.scrollWrap.style.bottom = bottom
+        this.$refs.scroll.refresh()
       }
     }
   }

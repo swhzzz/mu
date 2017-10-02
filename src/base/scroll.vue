@@ -60,6 +60,7 @@
       },
       refresh() {
         this.scroll && this.scroll.refresh()
+        console.log('refresh')
       },
       scrollToElement() {
         this.scroll && this.scroll.scrollToElement.apply(this.scroll, arguments)

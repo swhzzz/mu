@@ -1,6 +1,6 @@
 <template>
-  <div class="rank">
-    <scroll :data="topList" class="scroll">
+  <div class="rank" ref="rank">
+    <scroll :data="topList" class="scroll" ref="scroll">
       <ul class="list-wrap">
         <li v-for="item in topList" class="type" @click="handleClick(item)">
           <div><img :src="item.picUrl" alt=""></div>
@@ -23,8 +23,10 @@
   import {getTopList} from '../api/getTopList'
   import scroll from '../base/scroll.vue'
   import loading from '../base/loading/loading.vue'
+  import {playListMixin} from '../common/js/mixin'
 
   export default {
+    mixins: [playListMixin],
     data() {
       return {
         topList: []
@@ -50,6 +52,11 @@
           path: `/rank/${item.listenCount}`
         })
         this.$store.commit('setTopList', item)
+      },
+      handlePlayList(list) {
+        const bottom = list.length > 0 ? '58px' : 0
+        this.$refs.rank.style.bottom = bottom
+        this.$refs.scroll.refresh()
       }
     }
   }
