@@ -85,7 +85,7 @@
         })
       },
       initDots() {
-        this.dots = new Array(5)
+        this.dots = new Array(this.$refs.sliderGroup.children.length)
       },
       play() {
         let pageIndex = this.currentIndex + 1 // 当前的轮播图下标
