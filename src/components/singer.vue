@@ -71,7 +71,7 @@
     methods: {
       _getSinger() {
         getSinger().then((res) => {
-          console.log(res.data.list)
+//          console.log(res.data.list)
           let map = {
             hot: {
               title: '热门',
@@ -110,7 +110,6 @@
           // 放到数组里
           let hot = []
           let ret = []
-//          console.log(map)
           for (let key in map) {
             if (map[key].title === '热门') {
               hot.push(map[key])
@@ -143,7 +142,6 @@
       },
       calculateHeight() {
         let child = this.$refs.singer.children
-//        console.log(child.length)
         for (let i = 0; i < child.length; i++) {
           this.listHeight.push(child[i].clientHeight + this.listHeight[i])
         }

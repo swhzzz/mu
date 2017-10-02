@@ -1,7 +1,7 @@
 <template>
   <div class="search">
     <div class="search-box-wrap">
-      <search-box @listenValue="handleInput"></search-box>
+      <search-box @listenValue="handleQuery" :query="query"></search-box>
     </div>
     <div class="hot-search-wrap" v-show="songList.length ===0">
       <h5 class="hot-search">热门搜索</h5>
@@ -59,7 +59,7 @@
       handleClick(item) {
         this._getSearchResult(item)
       },
-      handleInput(value) {
+      handleQuery(value) {
         clearTimeout(this.timer)
         this.timer = setTimeout(() => {
           this._getSearchResult(value)
@@ -75,7 +75,6 @@
             this.songs = this.songList.map((item)=>{
               return createSong(item)
             })
-            console.log(this.songs);
           })
         }, 100)
         this.index++

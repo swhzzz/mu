@@ -1,23 +1,24 @@
 <template>
   <div class="search-part">
-    <input type="text" placeholder="搜索歌曲、歌手" v-model="value">
+    <input placeholder="搜索歌曲、歌手" v-model="query">
     <i class="iconfont icon-search"></i>
   </div>
 </template>
 
 <script>
   export default {
-    data() {
-      return {
-        value: ''
+    props: {
+      query: {
+        type: String,
+        default: ''
       }
     },
     watch: {
-      value(newValue) {
-        if (newValue === '') {
+      query(newQuery) {
+        if (newQuery === '') {
           return
         }
-        this.$emit('listenValue', newValue)
+        this.$emit('listenValue', newQuery)
       }
     }
   }

@@ -1,6 +1,6 @@
 <template>
   <ul class="song-wrap">
-    <li v-for="item in songList" class="song" >
+    <li v-for="(item,index) in songList" class="song" @click="handleClick(index)">
       <i class="iconfont icon-music"></i>
       <span v-html="getDisplay(item)"></span>
     </li>
@@ -23,7 +23,13 @@
     methods: {
       getDisplay(item) {
         return `${item.name} - ${item.singer}`
-      } // 这里用mustache日本语和韩文字不会显示
+      }, // 这里用mustache日本语和韩文字不会显示
+      handleClick(index) {
+        this.$store.dispatch('selectPlay', {
+          index,
+          list: this.songList
+        })
+      }
     }
   }
 </script>
