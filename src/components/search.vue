@@ -1,9 +1,9 @@
 <template>
   <div class="search">
     <div class="search-box-wrap">
-      <search-box @listenValue="handleQuery" :query="query"></search-box>
+      <search-box @listenValue="handleInput"></search-box>
     </div>
-    <div class="hot-search-wrap" v-show="songList.length ===0">
+    <div class="hot-search-wrap" v-show="songList.length === 0">
       <h5 class="hot-search">热门搜索</h5>
       <ul class="hotKeys-list">
         <li v-for="item in hotKeys" @click="handleClick(item)">{{item}}</li>
@@ -12,9 +12,6 @@
     <div class="searchList-wrap" v-if="songList.length>0">
       <scroll :data="songList" class="scroll" :pullup="true" @scrollToEnd="searchMore">
         <search-list :songList="songs"></search-list>
-        <div class="loading-wrap">
-          <loading></loading>
-        </div>
       </scroll>
     </div>
   </div>
@@ -27,13 +24,12 @@
   import {createSong} from '../api/song'
   import SearchList from './search-list.vue'
   import scroll from '../base/scroll.vue'
-  import loading from '../base/loading/loading.vue'
+  //  import loading from '../base/loading/loading.vue'
 
   export default {
     data() {
       return {
         hotKeys: [],
-        searchResult: [],
         timer: null,
         songList: [],
         songs: [],
@@ -42,7 +38,7 @@
         isLoading: false
       }
     },
-    components: {SearchBox, SearchList, scroll, loading},
+    components: {SearchBox, SearchList, scroll},
     created() {
       this._getHotSearch()
     },
@@ -59,24 +55,32 @@
       handleClick(item) {
         this._getSearchResult(item)
       },
-      handleQuery(value) {
+      handleInput(value) {
+        this.resetSearch()
         clearTimeout(this.timer)
         this.timer = setTimeout(() => {
           this._getSearchResult(value)
-        }, 1000)
+        }, 500)
+      },
+      resetSearch() {
+        this.page = 1
+        this.songList = []
+        this.songs = []
       },
       _getSearchResult(item) {
         this.isLoading = true
         this.query = item
-        setTimeout(() => {
-          getSearchResult(this.query, this.index).then((res) => {
-            this.isLoading = false
-            this.songList = [...this.songList, ...res.data.song.list]
-            this.songs = this.songList.map((item)=>{
-              return createSong(item)
-            })
+        getSearchResult(this.query, this.index).then((res) => {
+          if (res.data.message === 'no results') {
+            this.songList = []
+            return
+          }
+          this.isLoading = false
+          this.songList = [...this.songList, ...res.data.song.list]
+          this.songs = this.songList.map((item) => {
+            return createSong(item)
           })
-        }, 100)
+        })
         this.index++
       },
       searchMore() {
@@ -123,6 +127,10 @@
       height: 100%;
       overflow: hidden;
     }
+  }
+
+  .jia {
+    color: #fff;
   }
 
   .loading-wrap {
