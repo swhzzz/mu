@@ -2,7 +2,7 @@
   <div>
     <ul>
       <li v-for="(song,index) in songs" class="item" @click="handleClick(song,index)">
-        <div :class="getRankCls(index)">{{index + 1}}</div>
+        <div :class="getRankCls(index)" v-if="rank">{{index + 1}}</div>
         <div class="right">
           <h5 class="song-name">{{getSong(song)}}</h5>
           <span class="song-detail">{{getSinger(song)}}-{{getAlbum(song)}}</span>

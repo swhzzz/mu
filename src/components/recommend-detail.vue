@@ -1,14 +1,20 @@
 <template>
-    <transition name="slide">
-      <music-list :title="title" :img="img"></music-list>
-    </transition>
+  <transition name="slide">
+    <music-list :title="title" :img="img" :songs="songs"></music-list>
+  </transition>
 </template>
 
 <script>
   import MusicList from './music-list.vue'
+  import {getSongSheetSongs} from '../api/recommend'
   import {mapGetters} from 'vuex'
 
   export default {
+    data() {
+      return {
+        songs: []
+      }
+    },
     computed: {
       ...mapGetters(['songSheetData']),
       title() {
@@ -20,13 +26,22 @@
     },
     components: {
       MusicList
+    },
+    created() {
+      this._getSongSheetSongs()
+    },
+    methods: {
+      _getSongSheetSongs() {
+        getSongSheetSongs(this.songSheetData.dissid).then((res) => {
+          console.log(res.data)
+        })
+      }
     }
   }
 </script>
 
 <style lang="scss" scoped>
   @import '../common/sass/index';
-
 
   .slide-enter-active, .slide-leave-active {
     transition: all 0.3s;

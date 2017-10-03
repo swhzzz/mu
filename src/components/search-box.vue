@@ -14,7 +14,7 @@
     },
     watch: {
       value(newValue) {
-        if (!newValue) {
+        if (newValue === '') {
           return
         }
         this.$emit('listenValue', newValue)

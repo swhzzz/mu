@@ -32,7 +32,7 @@ module.exports = {
     rules: [
       {
         test: /\.vue$/,
-        loader: 'vue-loadewr',
+        loader: 'vue-loader',
         options: vueLoaderConfig
       },
       {

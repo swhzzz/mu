@@ -12,7 +12,7 @@
     </div>
     <div class="scroll-wrap" ref="scrollWrap">
       <scroll class="scroll" :data="songs" ref="scroll">
-        <songList :songs="songs" @select="handleSelect"></songList>
+        <songList :songs="songs" :rank="rank" @select="handleSelect"></songList>
       </scroll>
     </div>
   </div>
@@ -38,6 +38,10 @@
       songs: {
         type: Array,
         default: []
+      },
+      rank: {
+        type: Boolean,
+        default: false
       }
     },
     components: {songList, scroll},
@@ -51,7 +55,7 @@
         this.$router.back()
       },
       handleSelect(song, index) {
-        console.log(this.songs)
+//        console.log(this.songs)
         this.$store.dispatch('selectPlay', {
           list: this.songs,
           index: index

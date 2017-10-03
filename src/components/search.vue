@@ -1,15 +1,15 @@
 <template>
   <div class="search">
     <div class="search-box-wrap">
-      <search-box @listenValue="handleInput"></search-box>
+      <search-box @listenValue="handleInput" :query="query"></search-box>
     </div>
-    <div class="hot-search-wrap" v-show="songList.length === 0 || !query">
+    <div class="hot-search-wrap" v-show="!query">
       <h5 class="hot-search">热门搜索</h5>
       <ul class="hotKeys-list">
         <li v-for="item in hotKeys" @click="handleClick(item)">{{item}}</li>
       </ul>
     </div>
-    <div class="searchList-wrap" v-show="songList.length>0" ref="searchWrap">
+    <div class="searchList-wrap" v-show="query" ref="searchWrap">
       <scroll :data="songList" class="scroll" :pullup="true" @scrollToEnd="searchMore" ref="scroll">
         <search-list :songList="songs"></search-list>
       </scroll>
