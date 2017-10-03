@@ -1,6 +1,6 @@
 import axios from 'axios'
 import {commonParams} from './config'
-import {Base64} from 'js-base64' // 这里注意要加中括号
+import {Base64} from 'js-base64'
 
 export const getLyric = function (songmid) {
   let data = Object.assign({}, commonParams, {

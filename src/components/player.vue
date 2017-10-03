@@ -9,8 +9,17 @@
         <h5 class="singer-name" v-html="currentSong.singer"></h5>
       </div>
       <div class="main">
-        <div>
+        <div class="main-left">
           <img :class="rotateCls" :src="currentSong.image" alt="" class="img">
+        </div>
+        <div class="main-right">
+          <scroll ref="scroll" :data="lyricLines" class="scroll">
+            <div class="lyric-wrap">
+              <p v-for="(item,index) in lyricLines" v-html="item" class="lyric-line"
+                 :class="{'active': index === currentLineIndex}" ref="lyricLines">
+              </p>
+            </div>
+          </scroll>
         </div>
       </div>
       <div class="footer">
@@ -57,16 +66,19 @@
   import {messList} from '../api/util'
   import {getLyric} from '../api/lyric'
   import Lyric from 'lyric-parser'
+  import Scroll from '../base/scroll.vue'
 
   export default {
     data() {
       return {
         timer: null,
         currentTime: 0,
-        lyric: null
+        lyric: null,
+        lyricLines: [],
+        currentLineIndex: 0
       }
     },
-    components: {progressBar},
+    components: {progressBar, Scroll},
     computed: {
       ...mapGetters(['playList', 'sequenceList', 'fullScreen', 'currentSong', 'mode', 'isPlaying', 'currentIndex']),
       rotateCls() {
@@ -154,9 +166,24 @@
       },
       _getLyric() {
         getLyric(this.currentSong.mid).then((lyric) => {
-          this.lyric = new Lyric(lyric)
+          this.lyric = new Lyric(lyric, this.handleLyric)
+          this.lyric.lines.map((item) => {
+            this.lyricLines.push(item.txt)
+          })
           console.log(this.lyric)
+          if (this.isPlaying) {
+            this.lyric.play()
+          }
         })
+      },
+      handleLyric({lineNum, txt}) {
+        this.currentLineIndex = lineNum
+        if (lineNum > 5) {
+          let el = this.$refs.lyricLines[lineNum - 7]
+          this.$refs.scroll.scrollToElement(el, 1000) // 设置滚动歌词
+        } else {
+          this.$refs.scroll.scrollToElement(0, 0) // 入股歌词行数小于
+        }
       }
     },
     watch: {
@@ -172,7 +199,14 @@
       isPlaying(newPlaying) {
         let audio = this.$refs.audio
         this.$nextTick(() => {
-          newPlaying === true ? audio.play() : audio.pause()
+//          newPlaying === true ? audio.play() : audio.pause()
+          if (newPlaying) {
+            audio.play()
+            this.lyric.play()
+          } else {
+            audio.pause()
+            this.lyric.stop()
+          }
         })
       }
     }
@@ -256,11 +290,48 @@
       }
     }
     .main {
-      text-align: center;
-      padding-top: 48px;
-      .img {
-        border-radius: 50%;
-        width: 300px;
+      position: fixed;
+      width: 100%;
+      top: 48px;
+      bottom: 144px;
+      overflow: hidden;
+      white-space: nowrap;
+      .main-left {
+        display: inline-block;
+        text-align: center;
+        width: 100%;
+        vertical-align: top;
+        padding-top: 48px;
+        overflow: hidden;
+        .img {
+          border-radius: 50%;
+          width: 300px;
+        }
+      }
+      .main-right {
+        display: inline-block;
+        vertical-align: top;
+        padding-top: 16px;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        .scroll {
+          height: 100%;
+          overflow: hidden;
+          .lyric-wrap {
+            width: 100%;
+            .lyric-line {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              padding-bottom: 12px;
+              color: rgba(2555, 255, 255, 0.5);
+              &.active {
+                color: #fff;
+              }
+            }
+          }
+        }
       }
     }
     .footer {
