@@ -176,7 +176,7 @@
           this.lyric.lines.map((item) => {
             this.lyricLines.push(item.txt)
           })
-          console.log(this.lyric)
+//          console.log(this.lyric)
           if (this.isPlaying) {
             this.lyric.play()
           }
@@ -200,6 +200,12 @@
         if (newSong === oldSong) {
           return
         }
+        if (this.lyric) { // 在切换歌曲的时候把当前的lyric停止以防歌词跳动
+          this.lyric.stop()
+        }
+
+        this.lyricLines = [] // 清空歌词数组
+        this.currentLineIndex = 0
         this.$nextTick(() => {
           this.$refs.audio.play()
           this._getLyric()
