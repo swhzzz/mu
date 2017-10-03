@@ -9,12 +9,12 @@
         <h5 class="singer-name" v-html="currentSong.singer"></h5>
       </div>
       <div class="main" @click="toggleLyric">
-        <transition-group name="fade" >
+        <transition-group name="fade" tag="div">
           <div class="main-left" v-show="isImgShow" key="pic">
             <img :class="rotateCls" :src="currentSong.image" alt="" class="img">
           </div>
           <div class="main-right" v-show="!isImgShow" key="lyric">
-            <scroll ref="scroll" :data="lyricLines" class="scroll">
+            <scroll ref="scroll" :data="mixData" class="scroll">
               <div class="lyric-wrap">
                 <p v-for="(item,index) in lyricLines" v-html="item" class="lyric-line"
                    :class="{'active': index === currentLineIndex}" ref="lyricLines">
@@ -83,6 +83,9 @@
     },
     components: {progressBar, Scroll},
     computed: {
+      mixData() {
+        return this.isImgShow && this.lyricLines
+      },
       ...mapGetters(['playList', 'sequenceList', 'fullScreen', 'currentSong', 'mode', 'isPlaying', 'currentIndex']),
       rotateCls() {
         return this.isPlaying ? 'rotate' : 'rotate pause'
