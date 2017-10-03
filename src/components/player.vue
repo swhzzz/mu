@@ -143,7 +143,9 @@
         return `${minute}:${second}`
       },
       jumpProgress(rate) {
-        this.$refs.audio.currentTime = rate * this.currentSong.duration
+        const currentTime = rate * this.currentSong.duration
+        this.$refs.audio.currentTime = currentTime
+        this.lyric.seek(currentTime * 1000)
       },
       changeMode() {
         let mode = (this.mode + 1) % 3
