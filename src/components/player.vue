@@ -112,6 +112,7 @@
       },
       togglePlaying() {
         this.$store.commit('setIsPlaying', !this.isPlaying)
+        this.lyric.togglePlay()
       },
       toPrevSong() {
         let prev = this.currentIndex - 1 >= 0 ? this.currentIndex - 1 : this.playList.length - 1
@@ -166,6 +167,7 @@
         if (this.mode === playMode.loop) {
           this.$refs.audio.currentTime = 0
           this.$refs.audio.play()
+          this.lyric.seek(0)
         } else {
           this.toNextSong()
         }
