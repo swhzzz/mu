@@ -9,7 +9,7 @@
         <li v-for="item in hotKeys" @click="handleClick(item)">{{item}}</li>
       </ul>
     </div>
-    <div class="searchList-wrap" v-if="songList.length>0" ref="searchWrap">
+    <div class="searchList-wrap" v-show="songList.length>0" ref="searchWrap">
       <scroll :data="songList" class="scroll" :pullup="true" @scrollToEnd="searchMore" ref="scroll">
         <search-list :songList="songs"></search-list>
       </scroll>

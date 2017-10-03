@@ -4,9 +4,9 @@
       <div class="header">
         <div class="wrap">
           <i class="iconfont icon-back" @click="toggleFullScreen"></i>
-          <h3 class="song-name">{{currentSong.name}}</h3>
+          <h3 class="song-name" v-html="currentSong.name"></h3>
         </div>
-        <h5 class="singer-name">{{currentSong.singer}}</h5>
+        <h5 class="singer-name" v-html="currentSong.singer"></h5>
       </div>
       <div class="main">
         <div>
@@ -37,14 +37,13 @@
           <img :class="rotateCls" :src="currentSong.image" alt="">
         </div>
         <div class="content">
-          <h5>{{currentSong.name}}</h5>
-          <p>{{currentSong.singer}}</p>
+          <h5 v-html="currentSong.name"></h5>
+          <p v-html="currentSong.singer"></p>
         </div>
       </div>
       <div class="right">
         <span v-if="isPlaying" @click.stop="togglePlaying"><i class="iconfont icon-pause"></i></span>
         <span v-if="!isPlaying" @click.stop="togglePlaying"><i class="iconfont icon-play-mini"></i></span>
-        <span><i class="iconfont icon-list"></i></span>
       </div>
     </div>
     <audio ref="audio" :src="currentSong.url" @timeupdate="updateTime" @ended="end"></audio>
