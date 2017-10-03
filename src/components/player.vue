@@ -9,11 +9,11 @@
         <h5 class="singer-name" v-html="currentSong.singer"></h5>
       </div>
       <div class="main" @click="toggleLyric">
-        <transition name="fade" >
-          <div class="main-left" v-if="isImgShow" key="pic">
+        <transition-group name="fade" >
+          <div class="main-left" v-show="isImgShow" key="pic">
             <img :class="rotateCls" :src="currentSong.image" alt="" class="img">
           </div>
-          <div class="main-right" v-else key="lyric">
+          <div class="main-right" v-show="!isImgShow" key="lyric">
             <scroll ref="scroll" :data="lyricLines" class="scroll">
               <div class="lyric-wrap">
                 <p v-for="(item,index) in lyricLines" v-html="item" class="lyric-line"
@@ -22,7 +22,7 @@
               </div>
             </scroll>
           </div>
-        </transition>
+        </transition-group>
       </div>
       <div class="footer">
         <div class="time">
@@ -296,12 +296,9 @@
       overflow: hidden;
       white-space: nowrap;
       .main-left {
-        /*display: inline-block;*/
         position: absolute;
         text-align: center;
         width: 100%;
-        vertical-align: top;
-        /*padding-top: 52px;*/
         top: 52px;
         overflow: hidden;
         .img {
@@ -310,9 +307,7 @@
         }
       }
       .main-right {
-        /*display: inline-block;*/
         position: absolute;
-        vertical-align: top;
         padding-top: 16px;
         width: 100%;
         height: 100%;
@@ -444,7 +439,7 @@
   }
 
   .fade-enter-active, .fade-leave-active {
-    transition: all 1s;
+    transition: all 0.75s;
   }
 
   .fade-enter, .fade-leave-to {
