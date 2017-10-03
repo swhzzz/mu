@@ -8,19 +8,21 @@
         </div>
         <h5 class="singer-name" v-html="currentSong.singer"></h5>
       </div>
-      <div class="main">
-        <div class="main-left">
-          <img :class="rotateCls" :src="currentSong.image" alt="" class="img">
-        </div>
-        <div class="main-right">
-          <scroll ref="scroll" :data="lyricLines" class="scroll">
-            <div class="lyric-wrap">
-              <p v-for="(item,index) in lyricLines" v-html="item" class="lyric-line"
-                 :class="{'active': index === currentLineIndex}" ref="lyricLines">
-              </p>
-            </div>
-          </scroll>
-        </div>
+      <div class="main" @click="toggleLyric">
+        <transition name="fade" >
+          <div class="main-left" v-if="isImgShow" key="pic">
+            <img :class="rotateCls" :src="currentSong.image" alt="" class="img">
+          </div>
+          <div class="main-right" v-else key="lyric">
+            <scroll ref="scroll" :data="lyricLines" class="scroll">
+              <div class="lyric-wrap">
+                <p v-for="(item,index) in lyricLines" v-html="item" class="lyric-line"
+                   :class="{'active': index === currentLineIndex}" ref="lyricLines">
+                </p>
+              </div>
+            </scroll>
+          </div>
+        </transition>
       </div>
       <div class="footer">
         <div class="time">
@@ -75,7 +77,8 @@
         currentTime: 0,
         lyric: null,
         lyricLines: [],
-        currentLineIndex: 0
+        currentLineIndex: 0,
+        isImgShow: true
       }
     },
     components: {progressBar, Scroll},
@@ -179,11 +182,14 @@
       handleLyric({lineNum, txt}) {
         this.currentLineIndex = lineNum
         if (lineNum > 5) {
-          let el = this.$refs.lyricLines[lineNum - 7]
+          let el = this.$refs.lyricLines[lineNum - 8]
           this.$refs.scroll.scrollToElement(el, 1000) // 设置滚动歌词
         } else {
-          this.$refs.scroll.scrollToElement(0, 0) // 入股歌词行数小于
+          this.$refs.scroll.scrollToElement(0, 0) // 如果歌词行数小于8，不滚动
         }
+      },
+      toggleLyric() {
+        this.isImgShow = !this.isImgShow
       }
     },
     watch: {
@@ -199,14 +205,7 @@
       isPlaying(newPlaying) {
         let audio = this.$refs.audio
         this.$nextTick(() => {
-//          newPlaying === true ? audio.play() : audio.pause()
-          if (newPlaying) {
-            audio.play()
-            this.lyric.play()
-          } else {
-            audio.pause()
-            this.lyric.stop()
-          }
+          newPlaying === true ? audio.play() : audio.pause()
         })
       }
     }
@@ -292,16 +291,18 @@
     .main {
       position: fixed;
       width: 100%;
-      top: 48px;
+      top: 52px;
       bottom: 144px;
       overflow: hidden;
       white-space: nowrap;
       .main-left {
-        display: inline-block;
+        /*display: inline-block;*/
+        position: absolute;
         text-align: center;
         width: 100%;
         vertical-align: top;
-        padding-top: 48px;
+        /*padding-top: 52px;*/
+        top: 52px;
         overflow: hidden;
         .img {
           border-radius: 50%;
@@ -309,7 +310,8 @@
         }
       }
       .main-right {
-        display: inline-block;
+        /*display: inline-block;*/
+        position: absolute;
         vertical-align: top;
         padding-top: 16px;
         width: 100%;
@@ -440,4 +442,14 @@
       transform: rotate(360deg);
     }
   }
+
+  .fade-enter-active, .fade-leave-active {
+    transition: all 1s;
+  }
+
+  .fade-enter, .fade-leave-to {
+    opacity: 0;
+    /*transform: translate3d(100%, 0, 0);*/
+  }
+
 </style>
