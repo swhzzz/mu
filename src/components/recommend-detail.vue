@@ -8,6 +8,7 @@
   import MusicList from './music-list.vue'
   import {getSongSheetSongs} from '../api/recommend'
   import {mapGetters} from 'vuex'
+  import {createSong} from '../api/song'
 
   export default {
     data() {
@@ -33,7 +34,11 @@
     methods: {
       _getSongSheetSongs() {
         getSongSheetSongs(this.songSheetData.dissid).then((res) => {
-          console.log(res.data)
+          if (res.code === 0) {
+            res.cdlist[0].songlist.forEach((item) => {
+              this.songs.push(createSong(item))
+            })
+          }
         })
       }
     }

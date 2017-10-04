@@ -79,8 +79,8 @@
           }
           this.isLoading = false
           this.songList = [...this.songList, ...res.data.song.list]
-          this.songs = this.songList.map((item) => {
-            return createSong(item)
+          this.songList.forEach((item) => {
+            this.songs.push(createSong(item))
           })
         })
         this.index++

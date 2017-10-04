@@ -39,8 +39,8 @@
         }
         getSingerDetail(singerMid).then((res) => {
           if (res.code === 0) {
-            this.songs = res.data.list.map((item) => {
-              return createSong(item.musicData)
+            res.data.list.forEach((item) => {
+              this.songs.push(createSong(item.musicData))
             })
           }
         })

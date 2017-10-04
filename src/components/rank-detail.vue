@@ -37,8 +37,8 @@
         getRankSongs(this.topList.id).then((res) => {
 //          console.log(res.songlist)
           if (res.code === 0) {
-            this.songs = res.songlist.map((item) => {
-              return createSong(item.data)
+            res.songlist.forEach((item) => {
+              this.songs.push(createSong(item.data))
             })
           }
         })
