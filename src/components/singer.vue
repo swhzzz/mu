@@ -73,7 +73,7 @@
     methods: {
       _getSinger() {
         getSinger().then((res) => {
-          console.log(res.data.list)
+//          console.log(res.data.list)
           let map = {
             hot: {
               title: '热门',
@@ -145,7 +145,6 @@
       },
       calculateHeight() {
         let child = this.$refs.singerList.children
-//        console.log(child.length)
         for (let i = 0; i < child.length; i++) {
           this.listHeight.push(child[i].clientHeight + this.listHeight[i])
         }
@@ -158,6 +157,9 @@
         this.$store.commit('setSinger', subItem)
       },
       handlePlayList(list) {
+        if (!list) {
+          return
+        }
         const bottom = list.length > 0 ? '58px' : ''
         this.$refs.singer.style.bottom = bottom
         this.$refs.scroll.refresh()
@@ -172,16 +174,17 @@
           this.diff = height2 + newY
           if (newY >= 0) { // y大于0情况
             this.currentIndex = 0
-            return;
+            return
           }
           if ((-newY >= height1 && -newY < height2)) { // 在中间或者超出底部
             // 这里这个等于号很关键！！！！！否则遍历结束currentIndex = 23
             this.currentIndex = i
-            return;
+            return
           }
         }
       },
       diff(newDiff) {
+        if(!this.$refs.fixed){return}
         let fixedTop = (newDiff > 0 && newDiff < 24) ? newDiff - 24 : 0 // 相减为负值，transform向上滚动
         this.$refs.fixed.style.transform = `translate3d(0,${fixedTop}px,0)`
       }
