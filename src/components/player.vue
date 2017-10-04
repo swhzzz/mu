@@ -180,7 +180,6 @@
           this.lyric.lines.map((item) => {
             this.lyricLines.push(item.txt)
           })
-//          console.log(this.lyric)
           if (this.isPlaying) {
             this.lyric.play()
           }
@@ -334,7 +333,8 @@
               display: flex;
               justify-content: center;
               align-items: center;
-              padding-bottom: 12px;
+              padding-bottom: 16px;
+              font-size: 14px;
               color: rgba(2555, 255, 255, 0.5);
               &.active {
                 color: #fff;
