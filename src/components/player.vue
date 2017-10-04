@@ -36,7 +36,8 @@
           <span v-if="isPlaying" @click="togglePlaying"><i class="iconfont icon-pause"></i></span>
           <span v-if="!isPlaying" @click="togglePlaying"><i class="iconfont icon-play"></i></span>
           <span @click="toNextSong"><i class="iconfont icon-next"></i></span>
-          <span><i class="iconfont icon-heart1"></i></span>
+          <span v-if="!currentSong.isHeart" @click="toggleHeart"><i class="iconfont icon-heart1"></i></span>
+          <span v-if="currentSong.isHeart" @click="toggleHeart"><i class="iconfont icon-heart2"></i></span>
         </div>
       </div>
       <div class="bg" :style="bgCls"></div>
@@ -194,6 +195,13 @@
           this.$refs.scroll.scrollToElement(0, 0) // 如果歌词行数小于8，不滚动
         }
       },
+      toggleHeart() {
+        if (!this.currentSong.isHeart) {
+          this.currentSong.isHeart = true
+        } else {
+          this.currentSong.isHeart = !this.currentSong.isHeart
+        }
+      },
       toggleLyric() {
         this.isImgShow = !this.isImgShow
       }
@@ -233,6 +241,11 @@
   .icon-play-mini, .icon-list {
     font-size: 32px;
     color: $color-theme;
+  }
+
+  .icon-heart2 {
+    font-size: 32px;
+    color: red;
   }
 
   .icon-play, .icon-pause {
