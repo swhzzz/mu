@@ -36,9 +36,11 @@
         }
         getRankSongs(this.topList.id).then((res) => {
 //          console.log(res.songlist)
-          this.songs = res.songlist.map((item) => {
-            return createSong(item.data)
-          })
+          if (res.code === 0) {
+            this.songs = res.songlist.map((item) => {
+              return createSong(item.data)
+            })
+          }
         })
       }
     },

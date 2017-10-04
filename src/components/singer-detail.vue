@@ -38,9 +38,11 @@
           this.$router.back()
         }
         getSingerDetail(singerMid).then((res) => {
-          this.songs = res.data.list.map((item) => {
-            return createSong(item.musicData)
-          })
+          if (res.code === 0) {
+            this.songs = res.data.list.map((item) => {
+              return createSong(item.musicData)
+            })
+          }
         })
       }
     }

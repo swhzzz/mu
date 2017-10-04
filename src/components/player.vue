@@ -311,7 +311,7 @@
         position: absolute;
         text-align: center;
         width: 100%;
-        top: 52px;
+        top: 82px;
         overflow: hidden;
         .img {
           border-radius: 50%;

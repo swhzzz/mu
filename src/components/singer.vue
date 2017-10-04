@@ -80,34 +80,36 @@
               items: []
             }
           }
-          res.data.list.forEach((item, index) => {
-            if (index < 10) {
-              map.hot.items.push({
-                name: item.Fsinger_name,
-                id: item.Fsinger_id,
-                singerMid: item.Fsinger_mid,
-                avatar: `https://y.gtimg.cn/music/photo_new/T001R300x300M000${item.Fsinger_mid}.jpg?max_age=2592000`
-              })
-            } else if (!map[item.Findex]) {
-              map[item.Findex] = {
-                title: item.Findex,
-                items: []
+          if (res.code === 0) {
+            res.data.list.forEach((item, index) => {
+              if (index < 10) {
+                map.hot.items.push({
+                  name: item.Fsinger_name,
+                  id: item.Fsinger_id,
+                  singerMid: item.Fsinger_mid,
+                  avatar: `https://y.gtimg.cn/music/photo_new/T001R300x300M000${item.Fsinger_mid}.jpg?max_age=2592000`
+                })
+              } else if (!map[item.Findex]) {
+                map[item.Findex] = {
+                  title: item.Findex,
+                  items: []
+                }
+                map[item.Findex].items.push({
+                  name: item.Fsinger_name,
+                  id: item.Fsinger_id,
+                  singerMid: item.Fsinger_mid,
+                  avatar: `https://y.gtimg.cn/music/photo_new/T001R300x300M000${item.Fsinger_mid}.jpg?max_age=2592000`
+                })
+              } else {
+                map[item.Findex].items.push({
+                  name: item.Fsinger_name,
+                  id: item.Fsinger_id,
+                  singerMid: item.Fsinger_mid,
+                  avatar: `https://y.gtimg.cn/music/photo_new/T001R300x300M000${item.Fsinger_mid}.jpg?max_age=2592000`
+                })
               }
-              map[item.Findex].items.push({
-                name: item.Fsinger_name,
-                id: item.Fsinger_id,
-                singerMid: item.Fsinger_mid,
-                avatar: `https://y.gtimg.cn/music/photo_new/T001R300x300M000${item.Fsinger_mid}.jpg?max_age=2592000`
-              })
-            } else {
-              map[item.Findex].items.push({
-                name: item.Fsinger_name,
-                id: item.Fsinger_id,
-                singerMid: item.Fsinger_mid,
-                avatar: `https://y.gtimg.cn/music/photo_new/T001R300x300M000${item.Fsinger_mid}.jpg?max_age=2592000`
-              })
-            }
-          })
+            })
+          }
 //          console.log(map)
           // 放到数组里
           let hot = []
@@ -184,7 +186,9 @@
         }
       },
       diff(newDiff) {
-        if(!this.$refs.fixed){return}
+        if (!this.$refs.fixed) {
+          return
+        }
         let fixedTop = (newDiff > 0 && newDiff < 24) ? newDiff - 24 : 0 // 相减为负值，transform向上滚动
         this.$refs.fixed.style.transform = `translate3d(0,${fixedTop}px,0)`
       }
