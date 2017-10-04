@@ -11,6 +11,9 @@
       <div class="filter"></div>
     </div>
     <div class="scroll-wrap" ref="scrollWrap">
+      <div v-show="songs.length === 0" class="loading-wrap">
+        <loading></loading>
+      </div>
       <scroll class="scroll" :data="songs" ref="scroll">
         <songList :songs="songs" :rank="rank" @select="handleSelect"></songList>
       </scroll>
@@ -23,6 +26,7 @@
   import scroll from '../base/scroll.vue'
   import {messList} from '../api/util'
   import {playListMixin} from '../common/js/mixin'
+  import loading from '../base/loading/loading.vue'
 
   export default {
     mixins: [playListMixin],
@@ -44,7 +48,7 @@
         default: false
       }
     },
-    components: {songList, scroll},
+    components: {songList, scroll, loading},
     computed: {
       bgImg() {
         return `background-image: url(${this.img})`
@@ -156,6 +160,12 @@
       top: 220px;
       bottom: 0;
       width: 100%;
+      .loading-wrap {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+      }
       .scroll {
         height: 100%;
         overflow: hidden;

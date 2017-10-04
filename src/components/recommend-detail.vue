@@ -33,6 +33,9 @@
     },
     methods: {
       _getSongSheetSongs() {
+        if (!this.songSheetData.dissid) {
+          this.$router.back()
+        }
         getSongSheetSongs(this.songSheetData.dissid).then((res) => {
           if (res.code === 0) {
             res.cdlist[0].songlist.forEach((item) => {
