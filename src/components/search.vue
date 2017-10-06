@@ -1,7 +1,7 @@
 <template>
   <div class="search">
     <div class="search-box-wrap">
-      <search-box @listenValue="handleInput" :query="query"></search-box>
+      <search-box @listenValue="handleInput"></search-box>
     </div>
     <div class="hot-search-wrap" v-show="!query">
       <h5 class="hot-search">热门搜索</h5>
@@ -34,7 +34,7 @@
         timer: null,
         searchResult: [],
         songs: [],
-        index: 1,
+        page: 1,
         query: '',
         haveResult: true
       }
@@ -64,15 +64,16 @@
         }, 500)
       },
       resetSearch() {
+        console.log(1)
         this.page = 1
         this.searchResult = []
         this.songs = []
       },
       _getSearchResult(item) {
         this.query = item
-        getSearchResult(this.query, this.index).then((res) => {
-          if (res.message === 'no results') {
-            console.log(res.data.message)
+        getSearchResult(this.query, this.page).then((res) => {
+          if (res.message === 'no results' || res.message === 'query error') {
+            console.log(res.message)
             this.searchResult = []
             this.haveResult = false
             return
@@ -85,7 +86,7 @@
             })
           }
         })
-        this.index++
+        this.page++
       },
       searchMore() {
         this._getSearchResult(this.query)
