@@ -137,7 +137,8 @@ const xx = () => import('path/to/component') // 使用路由懒加载写法
 ## 六.keep-alive缓存
 每次切换tab的时候，再切换回原页面，会重新渲染页面，此时就需要keep-alive包裹动态组件，也就是router-view，这样再切换回来的时候就不会再重新渲染了，节约了流量
 
-## 七.用jsonp请求qq音乐网页歌单数据时，发现报错返回状态码是500，服务器出错。但是qq音乐自己是可以调用这个接口的，这是为什么呢。原因就在于qq音乐对请求做了处理，控制台Network ==> Request Header 下有个host和referer，host为c.y.qq.com，referer为https://y.qq.com/portal/playlist.html，就是因为这两个参数才请求不到数据。好，那么明确了问题，要怎么解决？前端能在发请求的时候携带header里的参数吗，想了一想好像不行，后端好像可以，有了直接用nodejs就好了 。。。build文件夹下有个dev-server.js文件就是一个服务器，我先发一个请求给dev-server，然后让dev-server去伪造header，再发请求，这样貌似可以行得通。附上dev-server的代码
+## 七.
+用jsonp请求qq音乐网页歌单数据时，发现报错返回状态码是500，服务器出错。但是qq音乐自己是可以调用这个接口的，这是为什么呢。原因就在于qq音乐对请求做了处理，控制台Network ==> Request Header 下有个host和referer，host为c.y.qq.com，referer为https://y.qq.com/portal/playlist.html，就是因为这两个参数才请求不到数据。好，那么明确了问题，要怎么解决？前端能在发请求的时候携带header里的参数吗，想了一想好像不行，后端好像可以，有了直接用nodejs就好了 。。。build文件夹下有个dev-server.js文件就是一个服务器，我先发一个请求给dev-server，然后让dev-server去伪造header，再发请求，这样貌似可以行得通。附上dev-server的代码
 ```
 var app = express()
 

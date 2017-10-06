@@ -11,7 +11,7 @@
     </div>
     <div class="searchList-wrap" v-show="query" ref="searchWrap">
       <scroll :data="songs" class="scroll" :pullup="true" @scrollToEnd="searchMore" ref="scroll">
-        <search-list :songList="songs"></search-list>
+        <search-list :songList="songs" :haveResult="haveResult"></search-list>
       </scroll>
     </div>
   </div>
@@ -35,7 +35,8 @@
         searchResult: [],
         songs: [],
         index: 1,
-        query: ''
+        query: '',
+        haveResult: true
       }
     },
     components: {SearchBox, SearchList, scroll},
@@ -70,15 +71,19 @@
       _getSearchResult(item) {
         this.query = item
         getSearchResult(this.query, this.index).then((res) => {
-          if (res.data.message === 'no results') {
+          if (res.message === 'no results') {
+            console.log(res.data.message)
             this.searchResult = []
+            this.haveResult = false
             return
+          } else {
+            this.haveResult = true
+            this.searchResult = this.searchResult.concat(res.data.song.list)
+            this.songs = []
+            this.searchResult.forEach((item) => {
+              this.songs.push(createSong(item))
+            })
           }
-          this.searchResult = this.searchResult.concat(res.data.song.list)
-          this.songs = []
-          this.searchResult.forEach((item) => {
-            this.songs.push(createSong(item))
-          })
         })
         this.index++
       },

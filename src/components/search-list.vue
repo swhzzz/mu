@@ -4,8 +4,9 @@
       <i class="iconfont icon-music"></i>
       <span v-html="getDisplay(item)"></span>
     </li>
-    <div class="load-wrap">
-    <loading></loading>
+    <div class="wrap">
+      <loading v-if="haveResult"></loading>
+      <no-result v-else></no-result>
     </div>
   </ul>
 </template>
@@ -13,17 +14,23 @@
 <script>
   import scroll from '../base/scroll.vue'
   import loading from '../base/loading/loading.vue'
+  import NoResult from '../base/no-result.vue'
 
   export default {
     props: {
       songList: {
         type: Array,
         default: []
+      },
+      haveResult: {
+        type: Boolean,
+        default: true
       }
     },
     components: {
       scroll,
-      loading
+      loading,
+      NoResult
     },
     methods: {
       getDisplay(item) {
@@ -53,7 +60,7 @@
         padding-right: 16px;
       }
     }
-    .load-wrap {
+    .wrap {
       display: flex;
       justify-content: center;
     }
