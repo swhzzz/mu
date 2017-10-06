@@ -438,9 +438,6 @@
     }
     .right {
       color: $color-theme;
-      .icon-play-mini, .icon-pause {
-        padding-right: 12px;
-      }
       .icon-pause {
         font-size: 32px;
       }

@@ -10,7 +10,7 @@
       </ul>
     </div>
     <div class="searchList-wrap" v-show="query" ref="searchWrap">
-      <scroll :data="songList" class="scroll" :pullup="true" @scrollToEnd="searchMore" ref="scroll">
+      <scroll :data="songs" class="scroll" :pullup="true" @scrollToEnd="searchMore" ref="scroll">
         <search-list :songList="songs"></search-list>
       </scroll>
     </div>
@@ -25,7 +25,6 @@
   import SearchList from './search-list.vue'
   import scroll from '../base/scroll.vue'
   import {playListMixin} from '../common/js/mixin'
-  //  import loading from '../base/loading/loading.vue'
 
   export default {
     mixins: [playListMixin],
@@ -33,11 +32,10 @@
       return {
         hotKeys: [],
         timer: null,
-        songList: [],
+        searchResult: [],
         songs: [],
         index: 1,
-        query: '',
-        isLoading: false
+        query: ''
       }
     },
     components: {SearchBox, SearchList, scroll},
@@ -66,20 +64,19 @@
       },
       resetSearch() {
         this.page = 1
-        this.songList = []
+        this.searchResult = []
         this.songs = []
       },
       _getSearchResult(item) {
-        this.isLoading = true
         this.query = item
         getSearchResult(this.query, this.index).then((res) => {
           if (res.data.message === 'no results') {
-            this.songList = []
+            this.searchResult = []
             return
           }
-          this.isLoading = false
-          this.songList = [...this.songList, ...res.data.song.list]
-          this.songList.forEach((item) => {
+          this.searchResult = this.searchResult.concat(res.data.song.list)
+          this.songs = []
+          this.searchResult.forEach((item) => {
             this.songs.push(createSong(item))
           })
         })

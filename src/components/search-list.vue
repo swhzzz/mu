@@ -4,11 +4,15 @@
       <i class="iconfont icon-music"></i>
       <span v-html="getDisplay(item)"></span>
     </li>
+    <div class="load-wrap">
+    <loading></loading>
+    </div>
   </ul>
 </template>
 
 <script>
   import scroll from '../base/scroll.vue'
+  import loading from '../base/loading/loading.vue'
 
   export default {
     props: {
@@ -18,7 +22,8 @@
       }
     },
     components: {
-      scroll
+      scroll,
+      loading
     },
     methods: {
       getDisplay(item) {
@@ -47,6 +52,10 @@
       .icon-music {
         padding-right: 16px;
       }
+    }
+    .load-wrap {
+      display: flex;
+      justify-content: center;
     }
   }
 
