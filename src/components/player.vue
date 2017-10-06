@@ -116,6 +116,7 @@
         this.lyric.togglePlay()
       },
       toPrevSong() {
+        this.currentLineIndex = 0
         let prev = this.currentIndex - 1 >= 0 ? this.currentIndex - 1 : this.playList.length - 1
         clearTimeout(this.timer) // 解决频繁点击报错
         setTimeout(() => {
@@ -125,6 +126,7 @@
         }, 300)
       },
       toNextSong() {
+        this.currentLineIndex = 0
         let next = this.currentIndex + 1 === this.playList.length ? 0 : this.currentIndex + 1
         clearTimeout(this.timer)
         setTimeout(() => {
