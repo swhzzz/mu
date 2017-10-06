@@ -85,7 +85,8 @@
     components: {progressBar, Scroll},
     computed: {
       mixData() {
-        return this.isImgShow && this.lyricLines
+        this.lyricLines.push(this.isImgShow)
+        return this.lyricLines
       },
       ...mapGetters(['playList', 'sequenceList', 'fullScreen', 'currentSong', 'mode', 'isPlaying', 'currentIndex']),
       rotateCls() {
@@ -103,8 +104,7 @@
           1: 'icon-loop',
           2: 'icon-random'
         }
-        let index = this.mode
-        return `iconfont ${map[index]}`
+        return `iconfont ${map[this.mode]}`
       }
     },
     methods: {
@@ -116,7 +116,6 @@
         this.lyric.togglePlay()
       },
       toPrevSong() {
-        this.currentLineIndex = 0
         let prev = this.currentIndex - 1 >= 0 ? this.currentIndex - 1 : this.playList.length - 1
         clearTimeout(this.timer) // 解决频繁点击报错
         setTimeout(() => {
@@ -126,7 +125,6 @@
         }, 300)
       },
       toNextSong() {
-        this.currentLineIndex = 0
         let next = this.currentIndex + 1 === this.playList.length ? 0 : this.currentIndex + 1
         clearTimeout(this.timer)
         setTimeout(() => {
@@ -189,11 +187,13 @@
         })
       },
       handleLyric({lineNum, txt}) {
+        console.log(lineNum)
         this.currentLineIndex = lineNum
         if (lineNum > 8) {
           let el = this.$refs.lyricLines[lineNum - 8]
           this.$refs.scroll.scrollToElement(el, 1000) // 设置滚动歌词
         } else {
+          console.log('xx')
           this.$refs.scroll.scrollToElement(0, 0) // 如果歌词行数小于8，不滚动
         }
       },
