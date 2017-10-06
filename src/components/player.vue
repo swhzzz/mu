@@ -157,7 +157,7 @@
         } else {
           list = this.sequenceList
         }
-        this.resetCurrentIndex(list) //
+        this.resetCurrentIndex(list)
         this.$store.commit('setPlayList', list)
       },
       resetCurrentIndex(list) {
@@ -188,7 +188,7 @@
       },
       handleLyric({lineNum, txt}) {
         this.currentLineIndex = lineNum
-        if (lineNum > 5) {
+        if (lineNum > 8) {
           let el = this.$refs.lyricLines[lineNum - 8]
           this.$refs.scroll.scrollToElement(el, 1000) // 设置滚动歌词
         } else {

@@ -92,14 +92,14 @@
         flex-direction: column;
         justify-content: space-around;
         padding: 16px;
-        background-color: $color-text-d;
+        background-color: $color-highlight-background;
         .song {
           width: 200px;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
           font-size: 12px;
-          color: #fff;
+          color: $color-text-d;
         }
       }
     }
