@@ -34,6 +34,7 @@
       line-height: 30px;
       font-size: 24px;
       color: #000;
+      background-color: #fff;
     }
     input {
       flex: 1;
