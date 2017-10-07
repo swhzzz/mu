@@ -9,7 +9,7 @@ npm install
 npm run dev
 ```
 # 预览
-![预览图](http://wx3.sinaimg.cn/mw690/c037d34dgy1fk9ksmkgtog206f0bbb2b.gif)
+![预览图](http://wx2.sinaimg.cn/mw690/c037d34dgy1fk9la8hvayg20610an4qr.gif)
 
 # 技术栈
 
