@@ -64,7 +64,6 @@
         }, 500)
       },
       resetSearch() {
-        console.log(1)
         this.page = 1
         this.searchResult = []
         this.songs = []
@@ -72,8 +71,7 @@
       _getSearchResult(item) {
         this.query = item
         getSearchResult(this.query, this.page).then((res) => {
-          if (res.message === 'no results' || res.message === 'query error') {
-            console.log(res.message)
+          if (res.data.song.curnum * this.page >= res.data.song.totalnum) {
             this.searchResult = []
             this.haveResult = false
             return
@@ -85,8 +83,8 @@
               this.songs.push(createSong(item))
             })
           }
+          this.page++
         })
-        this.page++
       },
       searchMore() {
         this._getSearchResult(this.query)

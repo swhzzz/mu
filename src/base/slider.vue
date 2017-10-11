@@ -26,7 +26,7 @@
       },
       interval: {
         type: Number,
-        default: 4000
+        default: 3000
       }
     },
     data() {
@@ -53,9 +53,7 @@
         let length = this.children.length
         let width = this.$refs.slider.clientWidth
         for (let i = 0; i < length; i++) {
-          let className = this.children[i].className.split('')
-          className.push('slider-item')
-          this.children[i].className = className
+          this.children[i].className = 'slider-item'
           this.children[i].style.width = width + 'px' // 设置单个图片div的宽度
         }
         if (this.loop) {
@@ -70,7 +68,6 @@
           momentum: false,
           snap: {
             loop: true,
-            threshold: 0.3,
             speed: 400
           }
         })
@@ -88,13 +85,10 @@
         this.dots = new Array(this.$refs.sliderGroup.children.length)
       },
       play() {
-        let pageIndex = this.currentIndex + 1 // 当前的轮播图下标
-        if (this.loop) {
-          pageIndex++
-        }
+        let pageIndex = this.currentIndex + 2 // 下一张轮播图下标
         this.timer = setTimeout(() => {
-          this.slider.goToPage(pageIndex, 0, 400)
-        }, 2000)
+          this.slider.goToPage(pageIndex, 0, 700)
+        }, this.interval)
       }
     }
   }

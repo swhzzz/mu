@@ -187,13 +187,11 @@
         })
       },
       handleLyric({lineNum, txt}) {
-        console.log(lineNum)
         this.currentLineIndex = lineNum
         if (lineNum > 8) {
           let el = this.$refs.lyricLines[lineNum - 8]
           this.$refs.scroll.scrollToElement(el, 1000) // 设置滚动歌词
         } else {
-          console.log('xx')
           this.$refs.scroll.scrollToElement(0, 0) // 如果歌词行数小于8，不滚动
         }
       },
