@@ -33,12 +33,12 @@
     },
     methods: {
       _getSongSheetSongs() {
-        if (!this.songSheetData.dissid) {
+        if (!this.songSheetData.dissid) { // 歌手详情页刷新返回歌手页面
           this.$router.back()
         }
         getSongSheetSongs(this.songSheetData.dissid).then((res) => {
-          if (res.code === 0) {
-            res.cdlist[0].songlist.forEach((item) => {
+          if (res.data.code === 0) {
+            res.data.cdlist[0].songlist.forEach((item) => {
               this.songs.push(createSong(item))
             })
           }

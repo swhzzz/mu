@@ -71,7 +71,6 @@
       _getSongList() {
         getSongList().then((res) => {
           this.hotSongList = res.data.list
-//          console.log(res.data.list)
         })
       },
       handleClick(item) {
