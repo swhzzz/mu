@@ -52,9 +52,7 @@ apiRoutes.get('/getSongSheetSongs', (req, res) => {
     var ret = response.data
     var reg = /^\w+\(({.+})\)$/
     var matches = ret.match(reg)
-    if(matches){
-      res.json(JSON.parse(matches[1]))
-    }
+    res.json(JSON.parse(matches[1]))
   }).catch((e) => {
     console.log(e)
   })

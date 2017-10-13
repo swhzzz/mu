@@ -4,8 +4,8 @@
       <li v-for="(song,index) in songs" class="item" @click="handleClick(song,index)">
         <div :class="getRankCls(index)" v-if="rank">{{index + 1}}</div>
         <div class="right">
-          <h5 class="song-name">{{getSong(song)}}</h5>
-          <span class="song-detail">{{getSinger(song)}}-{{getAlbum(song)}}</span>
+          <h5 class="song-name" v-html="song.name"></h5>
+          <span class="song-detail">{{song.singer}}-{{song.album}}</span>
         </div>
       </li>
     </ul>
@@ -29,24 +29,7 @@
     },
     methods: {
       handleClick(song, index) {
-//        console.log(this.songs)
         this.$emit('select', song, index)
-      },
-      getSong(song) { // 这里不同的歌单获取的数据不一样，要+个或
-        return song.name || song.data.songname
-      },
-      getSinger(song) {
-        return song.singer || this._getSinger(song.data.singer)
-      },
-      getAlbum(song) {
-        return song.album || song.data.albumname
-      },
-      _getSinger(singer) {
-        let tempArr = []
-        singer.forEach((item) => {
-          tempArr.push(item.name)
-        })
-        return tempArr === 1 ? tempArr : tempArr.join('/')
       },
       getRankCls(index) {
         return index < 3 ? 'left strong' : 'left'
