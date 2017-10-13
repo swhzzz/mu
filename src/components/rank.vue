@@ -47,7 +47,6 @@
         })
       },
       handleClick(item) {
-//        console.log(item)
         this.$router.push({
           path: `/rank/${item.listenCount}`
         })
@@ -68,7 +67,7 @@
   .rank {
     position: fixed;
     width: 100%;
-    top: 88px;
+    top: 78px;
     bottom: 0;
     .scroll {
       height: 100%;

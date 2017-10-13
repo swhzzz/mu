@@ -11,7 +11,7 @@
     props: {
       probeType: {
         type: Number,
-        default: 1 // 1表示有滑动后一定延迟才出发scroll，2表示正常滑动触发，3表示惯性动画的时候也触发
+        default: 1 // 1表示有滑动后一定延迟才触发scroll，2表示正常滑动触发，3表示惯性动画的时候也触发
       },
       click: {
         type: Boolean,

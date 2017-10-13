@@ -18,8 +18,7 @@
       </ol>
       <ol class="sidebar" ref="sidebar">
         <li v-for="(item,index) in sidebar"
-            @touchstart="switchList"
-            :data-index="index"
+            @click="switchList(index)"
             :class="{'active': currentIndex === index}"
         >{{item}}
         </li>
@@ -110,7 +109,6 @@
               }
             })
           }
-//          console.log(map)
           // 放到数组里
           let hot = []
           let ret = []
@@ -135,11 +133,9 @@
           }, 1000)
         })
       },
-      switchList(e) {
-        let index = e.target.getAttribute('data-index') // 得到点击时的序号
-//        console.log(this.sidebar[index])
+      switchList(index) {
         let singerList = this.$refs.singerList.children
-        this.scrollY = -this.listHeight[index]
+        this.scrollY = -this.listHeight[index]  // 这里不设置scrollY图片不会加载
         this.$refs.scroll.scrollToElement(singerList[index])
       },
       scroll(pos) {
