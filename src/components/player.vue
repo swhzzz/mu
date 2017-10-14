@@ -85,8 +85,10 @@
     components: {progressBar, Scroll},
     computed: {
       mixData() {
-        this.lyricLines.push(this.isImgShow)
-        return this.lyricLines
+        let temp = []
+        temp = this.lyricLines.slice()
+        temp.push(this.isImgShow)
+        return temp
       },
       ...mapGetters(['playList', 'sequenceList', 'fullScreen', 'currentSong', 'mode', 'isPlaying', 'currentIndex']),
       rotateCls() {
