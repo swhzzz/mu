@@ -68,7 +68,7 @@ apiRoutes.get('/lyric', (req, res) => {
     }
   }).then((response) => {
     var ret = response.data
-    var reg = /^\w+\(({[^()]+})\)$/ // 圆括号的用法
+    var reg = /^\w+\(({.+})\)$/ // 圆括号的用法
     var matches = ret.match(reg)
     res.json(JSON.parse(matches[1]))
   }).catch((e) => {

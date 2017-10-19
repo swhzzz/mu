@@ -146,7 +146,7 @@
         return `${minute}:${second}`
       },
       jumpProgress(rate) {
-        const currentTime = rate * this.currentSong.duration
+        let currentTime = rate * this.currentSong.duration
         this.$refs.audio.currentTime = currentTime
         this.lyric.seek(currentTime * 1000)
       },
@@ -330,7 +330,7 @@
         overflow: hidden;
         .img {
           border-radius: 50%;
-          width: 300px;
+          width: 75%;
         }
       }
       .main-right {
