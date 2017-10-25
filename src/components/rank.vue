@@ -53,7 +53,7 @@
         this.$store.commit('setTopList', item)
       },
       handlePlayList(list) {
-        const bottom = list.length > 0 ? '58px' : 0
+        const bottom = list.length > 0 ? `${58 / 375}rem` : 0
         this.$refs.rank.style.bottom = bottom
         this.$refs.scroll.refresh()
       }
@@ -67,7 +67,7 @@
   .rank {
     position: fixed;
     width: 100%;
-    top: 78px;
+    top: px2rem(78);
     bottom: 0;
     .scroll {
       height: 100%;
@@ -82,22 +82,22 @@
     flex-wrap: wrap;
     .type {
       display: flex;
-      padding-bottom: 24px;
+      padding-bottom: px2rem(24);
       img {
-        width: 100px;
+        width: px2rem(100);
       }
       .song-wrap {
         display: flex;
         flex-direction: column;
         justify-content: space-around;
-        padding: 16px;
+        padding: px2rem(16);
         background-color: $color-highlight-background;
         .song {
-          width: 200px;
+          width: px2rem(200);
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
-          font-size: 12px;
+          font-size: px2rem(12);
           color: $color-text-d;
         }
       }

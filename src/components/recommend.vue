@@ -5,7 +5,7 @@
         <div v-if="sliderPicInfos.length">
           <slider>
             <div v-for="item in sliderPicInfos">
-              <a :href="item.linkUrl"><img :src="item.picUrl"  @load="loadImage"></a>
+              <a :href="item.linkUrl"><img :src="item.picUrl" @load="loadImage"></a>
             </div>
           </slider>
         </div>
@@ -80,7 +80,7 @@
         })
       },
       handlePlayList(list) {
-        const bottom = list.length > 0 ? '58px' : ''
+        const bottom = list.length > 0 ? `${58 / 375}rem` : ''
         this.$refs.recommend.style.bottom = bottom
         this.$refs.scroll.refresh()
       }
@@ -89,12 +89,12 @@
 </script>
 
 <style scoped lang="scss">
-  @import '../common/sass/variable.scss';
+  @import '../common/sass/index.scss';
 
   .recommend {
     position: fixed;
     width: 100%;
-    top: 88px;
+    top: px2rem(88);
     bottom: 0;
     .scroll {
       height: 100%;
@@ -103,14 +103,14 @@
   }
 
   .hotSongList-wrap {
-    padding: 20px;
+    padding: px2rem(20);
     .hotSongList-title {
       text-align: center;
       color: $color-theme;
     }
     .hotSongList {
       li {
-        margin-top: 20px;
+        margin-top: px2rem(20);
       }
     }
   }
@@ -126,18 +126,18 @@
   .listInfo {
     display: flex;
     .icon {
-      width: 60px;
+      width: px2rem(60);
     }
     .listInfo-text {
       display: flex;
       flex-direction: column;
       justify-content: space-around;
-      margin-left: 20px;
+      margin-left: px2rem(20);
       h4 {
         color: $color-text;
       }
       p {
-        font-size: 14px;
+        font-size: px2rem(14);
         color: $color-text-d;
       }
     }

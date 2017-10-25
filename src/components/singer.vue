@@ -158,7 +158,7 @@
         if (!list) {
           return
         }
-        const bottom = list.length > 0 ? '58px' : ''
+        const bottom = list.length > 0 ? `${58 / 375}rem` : ''
         this.$refs.singer.style.bottom = bottom
         this.$refs.scroll.refresh()
       }
@@ -193,12 +193,12 @@
 </script>
 
 <style scoped lang="scss">
-  @import '../common/sass/variable';
+  @import '../common/sass/index';
 
   .singer {
     position: absolute;
     width: 100%;
-    top: 78px;
+    top: px2rem(78);
     bottom: 0;
     .scroll {
       height: 100%;
@@ -206,30 +206,30 @@
       .title {
         color: #fff;
         background-color: $color-highlight-background;
-        height: 24px;
-        line-height: 24px;
-        padding-left: 12px;
+        height: px2rem(24);
+        line-height: px2rem(24);
+        padding-left: px2rem(12);
       }
     }
   }
 
   .singerInfo {
-    padding-top: 24px;
+    padding-top: px2rem(24);
     .avatar {
-      width: 50px;
+      width: px2rem(50);
       border-radius: 50%;
       vertical-align: middle;
-      margin-left: 24px;
+      margin-left: px2rem(24);
     }
 
     .singer-name {
       color: $color-text-l;
       vertical-align: middle;
-      padding-left: 12px;
-      font-size: 14px;
+      padding-left: px2rem(12);
+      font-size: px2rem(14);
     }
     &:last-of-type {
-      padding-bottom: 24px;
+      padding-bottom: px2rem(24);
     }
   }
 
@@ -243,9 +243,9 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 0 4px;
-      font-size: 12px;
-      margin-top: 4px;
+      padding: 0 px2rem(4);
+      font-size: px2rem(12);
+      margin-top: px2rem(4);
       color: $color-text-l;
     }
   }
@@ -256,13 +256,13 @@
 
   .fixed-title {
     position: absolute;
-    top: -1px;
+    top: px2rem(-1);
     left: 0;
     width: 100%;
     h6 {
-      height: 24px;
-      line-height: 24px;
-      padding-left: 12px;
+      height: px2rem(24);
+      line-height: px2rem(24);
+      padding-left: px2rem(12);
       color: #fff;
       background-color: $color-highlight-background;
     }

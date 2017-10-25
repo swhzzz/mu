@@ -54,10 +54,10 @@
     .song {
       display: flex;
       color: $color-text-d;
-      padding: 16px 24px;
-      font-size: 14px;
+      padding: px2rem(16) px2rem(24);
+      font-size: px2rem(14);
       .icon-music {
-        padding-right: 16px;
+        padding-right: px2rem(16);
       }
     }
     .wrap {

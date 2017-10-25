@@ -10,16 +10,16 @@
 </script>
 
 <style scoped lang="scss">
-  @import '../../common/sass/variable.scss';
+  @import '../../common/sass/index';
 
   img {
-    width: 20px;
+    width: px2rem(20);
     vertical-align: middle;
   }
   span {
     display: inline-block;
     vertical-align: middle;
-    font-size: 14px;
+    font-size: px2rem(14);
     color: $color-text-d;
   }
 </style>

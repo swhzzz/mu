@@ -7,6 +7,11 @@ import fastclick from 'fastclick'
 import VueLazyload from 'vue-lazyload'
 
 import 'common/sass/index.scss'
+document.write(`<style>
+html{
+font-size: ${document.documentElement.clientWidth}px;
+}
+</style>`)
 
 fastclick.attach(document.body) // 解决点击300ms延迟
 

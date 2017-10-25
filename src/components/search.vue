@@ -90,7 +90,7 @@
         this._getSearchResult(this.query)
       },
       handlePlayList(list) {
-        const bottom = list.length > 0 ? '58px' : ''
+        const bottom = list.length > 0 ? `${58 / 375}rem` : ''
         this.$refs.searchWrap.style.bottom = bottom
         this.$refs.scroll.refresh()
       }
@@ -102,24 +102,24 @@
   @import '../common/sass/index';
 
   .search-box-wrap {
-    padding: 8px 24px;
+    padding: px2rem(8) px2rem(24);
   }
 
   .hot-search-wrap {
     .hot-search {
-      padding-left: 24px;
-      margin: 8px 0;
+      padding-left: px2rem(24);
+      margin: px2rem(8) 0;
       color: $color-text-l;
     }
     .hotKeys-list {
       overflow: hidden;
-      padding: 0 24px;
+      padding: 0 px2rem(24);
       li {
         float: left;
-        padding: 8px;
-        margin: 0 12px 12px 0;
-        border-radius: 5px;
-        font-size: 12px;
+        padding: px2rem(8);
+        margin: 0 px2rem(12) px2rem(12) 0;
+        border-radius: px2rem(5);
+        font-size: px2rem(12);
         color: $color-text-d;
         background-color: $color-highlight-background;
       }
@@ -129,7 +129,7 @@
   .searchList-wrap {
     position: fixed;
     width: 100%;
-    top: 132px;
+    top: px2rem(132);
     bottom: 0;
     .scroll {
       height: 100%;

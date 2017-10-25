@@ -1,9 +1,11 @@
+@import './function.scss';
 @import './variable.scss';
 
 body, html {
   line-height: 1;
   background: $color-background;
   user-select: none;
+  font-size: px2rem(16);
   -webkit-tap-highlight-color: transparent;
 }
 

@@ -71,7 +71,7 @@
         this.$store.dispatch('randomPlay', {list, randomList})
       },
       handlePlayList(list) {
-        const bottom = list.length > 0 ? '58px' : 0
+        const bottom = list.length > 0 ? `${58 / 375}rem` : 0
         this.$refs.scrollWrap.style.bottom = bottom
         this.$refs.scroll.refresh()
       }
@@ -95,7 +95,7 @@
       position: absolute;
       top: 0;
       width: 100%;
-      padding: 24px 0;
+      padding: px2rem(24) 0;
       z-index: 2;
       .title {
         position: absolute;
@@ -107,10 +107,10 @@
       }
       .icon-back {
         position: absolute;
-        left: 24px;
+        left: px2rem(24);
         top: 50%;
         transform: translate3d(0, -50%, 0);
-        font-size: 24px;
+        font-size: px2rem(24);
         color: $color-theme;
       }
     }
@@ -124,18 +124,18 @@
       .random-play {
         position: absolute;
         left: 50%;
-        bottom: 24px;
+        bottom: px2rem(24);
         transform: translate3d(-50%, 0, 0);
         color: $color-theme;
-        padding: 8px 16px;
+        padding: px2rem(8) px2rem(16);
         border: 1px solid $color-theme;
-        border-radius: 16px;
+        border-radius: px2rem(16);
         z-index: 11;
         span {
-          font-size: 14px;
+          font-size: px2rem(14);
           .icon-play {
-            font-size: 16px;
-            margin-right: 8px;
+            font-size: px2rem(16);
+            margin-right: px2rem(8);
             vertical-align: middle;
           }
           &:after {
@@ -157,7 +157,7 @@
     }
     .scroll-wrap {
       position: fixed;
-      top: 220px;
+      top: px2rem(220);
       bottom: 0;
       width: 100%;
       .loading-wrap {

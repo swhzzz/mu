@@ -24,10 +24,10 @@
   .tab {
     display: flex;
     justify-content: space-around;
-    padding-bottom: 8px;
+    padding-bottom: px2rem(8);
     color: $color-text-l;
     .tab-item {
-      padding: 8px 16px;
+      padding: px2rem(8) px2rem(16);
       &.router-link-active {
         color: $color-theme;
         border-bottom: 2px $color-theme solid;

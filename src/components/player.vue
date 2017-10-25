@@ -241,17 +241,17 @@
   .icon-loop, .icon-prev,
   .icon-next, .icon-heart1,
   .icon-play-mini, .icon-list {
-    font-size: 32px;
+    font-size: px2rem(32);
     color: $color-theme;
   }
 
   .icon-heart2 {
-    font-size: 32px;
+    font-size: px2rem(32);
     color: red;
   }
 
   .icon-play, .icon-pause {
-    font-size: 40px;
+    font-size: px2rem(40);
     color: $color-theme;
   }
 
@@ -291,13 +291,13 @@
     .header {
       .wrap {
         position: relative;
-        padding: 8px 0;
-        height: 32px;
+        padding: px2rem(8) 0;
+        height: px2rem(32);
         .icon-back {
           position: absolute;
-          left: 24px;
+          left: px2rem(24);
           transform: rotate(-90deg);
-          font-size: 24px;
+          font-size: px2rem(24);
           color: $color-theme;
         }
         .song-name {
@@ -311,22 +311,22 @@
         }
       }
       .singer-name {
-        padding-top: 8px;
+        padding-top: px2rem(8);
         text-align: center;
       }
     }
     .main {
       position: fixed;
       width: 100%;
-      top: 52px;
-      bottom: 144px;
+      top: px2rem(52);
+      bottom: px2rem(144);
       overflow: hidden;
       white-space: nowrap;
       .main-left {
         position: absolute;
         text-align: center;
         width: 100%;
-        top: 82px;
+        top: px2rem(82);
         overflow: hidden;
         .img {
           border-radius: 50%;
@@ -335,7 +335,7 @@
       }
       .main-right {
         position: absolute;
-        padding-top: 16px;
+        padding-top: px2rem(16);
         width: 100%;
         height: 100%;
         overflow: hidden;
@@ -348,8 +348,8 @@
               display: flex;
               justify-content: center;
               align-items: center;
-              padding-bottom: 16px;
-              font-size: 14px;
+              padding-bottom: px2rem(16);
+              font-size: px2rem(14);
               color: rgba(2555, 255, 255, 0.5);
               &.active {
                 color: #fff;
@@ -370,20 +370,20 @@
         display: flex;
         align-items: center;
         width: 100%;
-        padding: 16px 48px;
-        font-size: 12px;
+        padding: px2rem(16) px2rem(48);
+        font-size: px2rem(12);
         .time-left {
-          width: 32px;
+          width: px2rem(32);
           box-sizing: border-box;
-          padding-right: 8px;
+          padding-right: px2rem(8);
         }
         .progress-wrap {
           width: 80%;
         }
         .time-right {
-          width: 32px;
+          width: px2rem(32);
           box-sizing: border-box;
-          padding-left: 8px;
+          padding-left: px2rem(8);
         }
       }
       .icon-wrap {
@@ -391,7 +391,7 @@
         justify-content: space-around;
         align-items: center;
         width: 100%;
-        padding: 0 32px;
+        padding: 0 px2rem(32);
         text-align: center;
       }
     }
@@ -402,7 +402,7 @@
     bottom: 0;
     left: 0;
     width: 100%;
-    padding: 8px 16px;
+    padding: px2rem(8) px2rem(16);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -411,29 +411,29 @@
     .left {
       display: flex;
       img {
-        width: 40px;
+        width: px2rem(40);
         border-radius: 50%;
       }
       .content {
         float: left;
-        padding-left: 12px;
+        padding-left: px2rem(12);
         display: flex;
         flex-direction: column;
         justify-content: center;
         h5 {
           color: #fff;
-          width: 200px;
+          width: px2rem(200);
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
-          padding-bottom: 8px;
+          padding-bottom: px2rem(8);
         }
         p {
-          width: 200px;
+          width: px2rem(200);
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
-          font-size: 14px;
+          font-size: px2rem(14);
           color: $color-text-l;
         }
       }
@@ -441,7 +441,7 @@
     .right {
       color: $color-theme;
       .icon-pause {
-        font-size: 32px;
+        font-size: px2rem(32);
       }
     }
   }
@@ -469,7 +469,6 @@
 
   .fade-enter, .fade-leave-to {
     opacity: 0;
-    /*transform: translate3d(100%, 0, 0);*/
   }
 
 </style>

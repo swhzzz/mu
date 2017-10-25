@@ -43,16 +43,16 @@
 
   .item {
     display: flex;
-    padding: 0 36px 24px;
+    padding: 0 px2rem(36) px2rem(24);
     &:first-of-type {
-      padding-top: 24px;
+      padding-top: px2rem(24);
     }
     .left {
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 16px;
-      padding-right: 24px;
+      font-size: px2rem(16);
+      padding-right: px2rem(24);
       color: $color-theme;
     }
     .strong {
@@ -62,10 +62,10 @@
     .right {
       .song-name {
         color: #fff;
-        margin-bottom: 8px;
+        margin-bottom: px2rem(8);
       }
       .song-detail {
-        font-size: 14px;
+        font-size: px2rem(14);
         color: $color-text-d;
       }
     }

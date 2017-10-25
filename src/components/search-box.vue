@@ -28,11 +28,11 @@
 
   .search-part {
     display: flex;
-    border-radius: 5px;
+    border-radius: px2rem(5);
     .icon-search {
-      height: 30px;
-      line-height: 30px;
-      font-size: 24px;
+      height: px2rem(30);
+      line-height: px2rem(30);
+      font-size: px2rem(24);
       color: #000;
       background-color: #fff;
     }
@@ -40,8 +40,8 @@
       flex: 1;
       outline: none;
       border: none;
-      padding-left: 8px;
-      font-size: 14px;
+      padding-left: px2rem(8);
+      font-size: px2rem(14);
     }
   }
 </style>

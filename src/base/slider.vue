@@ -96,6 +96,7 @@
 
 
 <style lang="scss" scoped>
+  @import '../common/sass/index';
   .slider {
     position: relative;
     overflow: hidden;
@@ -113,9 +114,9 @@
       }
     }
     .dots-wrap {
-      width: 80px;
+      width: px2rem(80);
       position: absolute;
-      bottom: 10px;
+      bottom: px2rem(10);
       left: 50%;
       transform: translate3d(-50%, 0, 0);
       .dots {
@@ -123,12 +124,12 @@
         justify-content: space-between;
         align-items: center;
         li {
-          width: 8px;
-          height: 8px;
-          border-radius: 12px;
+          width: px2rem(8);
+          height: px2rem(8);
+          border-radius: px2rem(12);
           background-color: rgba(255, 255, 255, 0.8);
           &.active {
-            width: 20px;
+            width: px2rem(20);
           }
         }
       }

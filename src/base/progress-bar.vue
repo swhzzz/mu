@@ -22,8 +22,8 @@
         this.setWidth(diffWidth)
       },
       setWidth(diffWidth) {
-        this.$refs.bar.style.width = `${diffWidth}px` // px一定要加啊，真是醉了。
-        this.$refs.btn.style.transform = `translate3d(${diffWidth}px,0,0)` // px...
+        this.$refs.bar.style.width = `${diffWidth / 375}rem` // px一定要加啊，真是醉了。
+        this.$refs.btn.style.transform = `translate3d(${diffWidth / 375}rem,0,0)` // px...
       }
     },
     watch: {
@@ -41,26 +41,26 @@
   @import '../common/sass/index';
 
   .progress-bar-wrap {
-    padding: 8px 0;
+    padding: px2rem(8) 0;
     width: 100%;
     .progress-bar {
       position: relative;
       width: 100%;
-      height: 2px;
+      height: px2rem(2);
       background-color: #fff;
       .bar {
         position: absolute;
         top: 0;
         background-color: $color-theme;
-        height: 2px;
+        height: px2rem(2);
         width: 0;
       }
       .btn {
         position: absolute;
         left: 0;
-        top: -5px;
-        width: 12px;
-        height: 12px;
+        top: px2rem(-5);
+        width: px2rem(12);
+        height: px2rem(12);
         background-color: $color-theme;
         border: 1px solid $color-theme;
         border-radius: 50%;
