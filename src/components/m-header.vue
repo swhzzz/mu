@@ -10,23 +10,23 @@
 </script>
 
 <style scoped lang="scss">
-  @import '../common/sass/variable.scss';
+  @import '../common/sass/index.scss';
 
   header {
     display: flex;
     justify-content: center;
     align-items: center;
     .title {
-      font-size: 22px;
-      margin-left: 1em;
+      font-size: px2rem(22);
+      margin-left: px2rem(22);
       color: $color-theme;
     }
   }
 
   .icon-wrapper {
-    padding: 8px 0;
+    padding: px2rem(8) 0;
     .icon {
-      width: 20px;
+      width: px2rem(20);
       vertical-align: middle;
     }
   }

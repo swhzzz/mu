@@ -25,7 +25,7 @@
 </script>
 
 <style scoped lang="scss">
-  @import './common/sass/variable.scss';
+  @import './common/sass/index.scss';
 
   .wrapper {
     position: sticky;
