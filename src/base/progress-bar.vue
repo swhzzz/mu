@@ -22,8 +22,8 @@
         this.setWidth(diffWidth)
       },
       setWidth(diffWidth) {
-        this.$refs.bar.style.width = `${diffWidth / 375}rem` // px一定要加啊，真是醉了。
-        this.$refs.btn.style.transform = `translate3d(${diffWidth / 375}rem,0,0)` // px...
+        this.$refs.bar.style.width = `${diffWidth}px`
+        this.$refs.btn.style.transform = `translate3d(${diffWidth}px,0,0)` // px...
       }
     },
     watch: {
