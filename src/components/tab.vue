@@ -20,7 +20,7 @@
 </script>
 
 <style scoped lang="scss">
-  @import '../common/sass/index.scss';
+  @import '../common/sass/index';
   .tab {
     display: flex;
     justify-content: space-around;

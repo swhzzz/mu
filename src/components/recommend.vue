@@ -89,7 +89,7 @@
 </script>
 
 <style scoped lang="scss">
-  @import '../common/sass/index.scss';
+  @import '../common/sass/index';
 
   .recommend {
     position: fixed;

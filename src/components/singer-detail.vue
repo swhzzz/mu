@@ -50,7 +50,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '../common/sass/variable';
+  @import '../common/sass/index';
 
   .slide-enter-active, .slide-leave-active {
     transition: all 0.3s;

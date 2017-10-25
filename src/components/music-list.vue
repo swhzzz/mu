@@ -80,7 +80,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '../common/sass/index.scss';
+  @import '../common/sass/index';
   @import '../common/font/iconfont.css';
 
   .music-list {
