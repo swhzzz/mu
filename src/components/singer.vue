@@ -201,6 +201,7 @@
     top: px2rem(78);
     bottom: 0;
     .scroll {
+      position: relative;
       height: 100%;
       overflow: hidden;
       .title {
@@ -234,7 +235,7 @@
   }
 
   .sidebar {
-    position: fixed;
+    position: absolute;
     right: 0;
     top: 50%;
     transform: translateY(-50%);
